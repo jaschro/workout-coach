@@ -1,1 +1,24 @@
-[]
+[
+  {
+    "machineId": "pm01",
+    "machineName": "Adjustable Decline Abdominal Bench",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "sets": [
+      {
+        "weight": null,
+        "reps": 10
+      },
+      {
+        "weight": null,
+        "reps": 15
+      },
+      {
+        "weight": null,
+        "reps": 10
+      }
+    ],
+    "notes": ""
+  }
+]
