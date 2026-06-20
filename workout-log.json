@@ -1,5 +1,27 @@
 [
   {
+    "machineId": "pm02",
+    "machineName": "Seated Row Machine",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "sets": [
+      {
+        "weight": 40,
+        "reps": 10
+      },
+      {
+        "weight": 55,
+        "reps": 10
+      },
+      {
+        "weight": 70,
+        "reps": 10
+      }
+    ],
+    "notes": ""
+  },
+  {
     "machineId": "pm07",
     "machineName": "Back Extension Bench",
     "gym": "Portofino Gym",
