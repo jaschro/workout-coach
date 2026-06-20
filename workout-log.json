@@ -1,5 +1,39 @@
 [
   {
+    "machineId": "pm04",
+    "machineName": "Pec Fly / Rear Delt Combo",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "sets": [
+      {
+        "weight": 40,
+        "reps": 10
+      },
+      {
+        "weight": 40,
+        "reps": 10
+      },
+      {
+        "weight": 55,
+        "reps": 10
+      },
+      {
+        "weight": 55,
+        "reps": 10
+      },
+      {
+        "weight": 70,
+        "reps": 10
+      },
+      {
+        "weight": 70,
+        "reps": 10
+      }
+    ],
+    "notes": "Slow!!"
+  },
+  {
     "machineId": "pm01",
     "machineName": "Adjustable Decline Abdominal Bench",
     "gym": "Portofino Gym",
