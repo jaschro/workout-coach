@@ -1,5 +1,23 @@
 [
   {
+    "machineId": "pm06",
+    "machineName": "Seated Leg Curl Machine",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "sets": [
+      {
+        "weight": 15,
+        "reps": 10
+      },
+      {
+        "weight": 30,
+        "reps": 10
+      }
+    ],
+    "notes": ""
+  },
+  {
     "machineId": "pm05",
     "machineName": "Seated Leg Extension Machine",
     "gym": "Portofino Gym",
