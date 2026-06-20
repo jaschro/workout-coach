@@ -252,6 +252,83 @@
     color: white;
   }
 
+  /* ── Sets Table ── */
+  .sets-table { margin-bottom: 14px; }
+  .sets-header {
+    display: grid;
+    grid-template-columns: 28px 1fr 1fr 32px;
+    gap: 6px;
+    padding: 0 2px 6px;
+  }
+  .sets-header span {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+  }
+  .set-row {
+    display: grid;
+    grid-template-columns: 28px 1fr 1fr 32px;
+    gap: 6px;
+    margin-bottom: 8px;
+    align-items: center;
+  }
+  .set-num {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-align: center;
+    padding-top: 2px;
+  }
+  .set-row input {
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 8px;
+    font-size: 16px;
+    font-family: inherit;
+    background: var(--bg);
+    color: var(--text);
+    width: 100%;
+    text-align: center;
+  }
+  .set-row input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+  }
+  .set-remove {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .set-remove:active { background: var(--border); }
+  .btn-add-set {
+    width: 100%;
+    background: none;
+    border: 1.5px dashed var(--border);
+    border-radius: 8px;
+    padding: 9px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary);
+    cursor: pointer;
+    margin-bottom: 4px;
+  }
+  .btn-add-set:active { background: var(--accent); }
+
+  /* ── History sets ── */
+  .history-sets { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.6; }
+  .history-sets span { display: inline-block; margin-right: 10px; }
+
   .btn-log {
     width: 100%;
     background: var(--primary);
@@ -431,18 +508,14 @@
 
   <div class="section-label">Log Today</div>
   <div class="log-form">
-    <div class="form-row">
-      <div class="form-group" style="flex:2">
+    <div class="form-row" style="margin-bottom:12px">
+      <div class="form-group">
         <label>Date</label>
         <input type="date" id="log-date">
       </div>
-      <div class="form-group" style="flex:1">
-        <label>Sets</label>
-        <input type="number" id="log-sets" min="1" max="20" value="3" inputmode="numeric">
-      </div>
     </div>
 
-    <div class="form-row" style="margin-bottom:8px">
+    <div class="form-row" style="margin-bottom:12px">
       <div class="form-group">
         <label>Measure</label>
         <div class="type-toggle">
@@ -452,26 +525,22 @@
       </div>
     </div>
 
-    <div id="weight-fields" class="form-row">
-      <div class="form-group">
-        <label>Weight (lbs)</label>
-        <input type="number" id="log-weight" min="0" step="5" inputmode="decimal" placeholder="e.g. 50">
+    <!-- Weight & Reps sets table -->
+    <div id="weight-fields" class="sets-table">
+      <div class="sets-header">
+        <span>#</span><span>Weight (lbs)</span><span>Reps</span><span></span>
       </div>
-      <div class="form-group">
-        <label>Reps</label>
-        <input type="number" id="log-reps" min="1" max="100" inputmode="numeric" placeholder="e.g. 12">
-      </div>
+      <div id="weight-rows"></div>
+      <button class="btn-add-set" onclick="addSetRow('weight')">+ Add Set</button>
     </div>
 
-    <div id="time-fields" class="form-row" style="display:none">
-      <div class="form-group">
-        <label>Duration (min)</label>
-        <input type="number" id="log-duration" min="1" max="300" inputmode="numeric" placeholder="e.g. 30">
+    <!-- Duration sets table -->
+    <div id="time-fields" class="sets-table" style="display:none">
+      <div class="sets-header">
+        <span>#</span><span>Duration (min)</span><span>Level</span><span></span>
       </div>
-      <div class="form-group">
-        <label>Level / Resistance</label>
-        <input type="number" id="log-level" min="1" max="30" inputmode="numeric" placeholder="e.g. 8">
-      </div>
+      <div id="time-rows"></div>
+      <button class="btn-add-set" onclick="addSetRow('time')">+ Add Set</button>
     </div>
 
     <div class="form-group" style="margin-bottom:14px">
@@ -699,7 +768,7 @@ function renderMachineList(machines, title) {
   const grid = document.getElementById('machine-grid');
   grid.innerHTML = machines.map(m => {
     const history = getHistory(m.id);
-    const last = history[0];
+    const last = history[0] || null;
     const lastText = last ? formatShort(last) : 'No sessions yet';
     const hasData = !!last;
     return `
@@ -730,31 +799,21 @@ function selectMachine(machineId) {
     histEl.innerHTML = '<div class="history-empty">No sessions recorded yet — be the first!</div>';
   } else {
     histEl.innerHTML = history.map(s => `
-      <div class="history-item">
-        <div class="history-date">${formatDate(s.date)}</div>
-        <div class="history-stats">${formatFull(s)}</div>
+      <div class="history-item" style="flex-direction:column;align-items:flex-start;gap:4px">
+        <div style="display:flex;justify-content:space-between;width:100%">
+          <div class="history-date">${formatDate(s.date)}</div>
+          <div class="history-stats">${formatSummary(s)}</div>
+        </div>
+        <div class="history-sets">${formatSetsList(s)}</div>
       </div>`).join('');
   }
 
   // Pre-fill date
   document.getElementById('log-date').value = todayStr();
-
-  // Reset form
-  document.getElementById('log-weight').value = '';
-  document.getElementById('log-reps').value = '';
-  document.getElementById('log-duration').value = '';
-  document.getElementById('log-level').value = '';
   document.getElementById('log-notes').value = '';
-  document.getElementById('log-sets').value = '3';
 
-  // Pre-fill weight/reps from last session
-  if (history[0]) {
-    if (history[0].weight !== undefined) document.getElementById('log-weight').value = history[0].weight;
-    if (history[0].reps !== undefined) document.getElementById('log-reps').value = history[0].reps;
-    if (history[0].sets !== undefined) document.getElementById('log-sets').value = history[0].sets;
-    if (history[0].duration !== undefined) { setType('time'); document.getElementById('log-duration').value = history[0].duration; }
-    if (history[0].level !== undefined) document.getElementById('log-level').value = history[0].level;
-  }
+  // Init sets rows (pre-filled from last session if available)
+  initSetRows(history[0] || null);
 
   const prevScreen = state.gym === 'fifth' ? '5th Street Gym' : (GYMS.portofino.rooms[state.room]);
   push(() => { showScreen('machines', prevScreen); });
@@ -764,56 +823,117 @@ function selectMachine(machineId) {
 // ═══════════════════════════════════════════════════════
 // LOGGING
 // ═══════════════════════════════════════════════════════
+// ── Sets table ────────────────────────────────────────────────────────────────
 function setType(type) {
   state.logType = type;
   document.getElementById('toggle-weight').className = type === 'weight' ? 'active' : '';
   document.getElementById('toggle-time').className   = type === 'time'   ? 'active' : '';
-  document.getElementById('weight-fields').style.display = type === 'weight' ? 'flex' : 'none';
-  document.getElementById('time-fields').style.display   = type === 'time'   ? 'flex' : 'none';
+  document.getElementById('weight-fields').style.display = type === 'weight' ? '' : 'none';
+  document.getElementById('time-fields').style.display   = type === 'time'   ? '' : 'none';
 }
 
+function addSetRow(type, vals={}) {
+  const container = document.getElementById(type === 'weight' ? 'weight-rows' : 'time-rows');
+  const num = container.children.length + 1;
+  const row = document.createElement('div');
+  row.className = 'set-row';
+
+  if (type === 'weight') {
+    row.innerHTML = `
+      <div class="set-num">${num}</div>
+      <input type="number" inputmode="decimal" step="5" min="0" placeholder="lbs" value="${vals.weight ?? ''}">
+      <input type="number" inputmode="numeric" min="1" placeholder="reps" value="${vals.reps ?? ''}">
+      <button class="set-remove" onclick="removeSetRow(this,'weight')" title="Remove">×</button>`;
+  } else {
+    row.innerHTML = `
+      <div class="set-num">${num}</div>
+      <input type="number" inputmode="numeric" min="1" placeholder="min" value="${vals.duration ?? ''}">
+      <input type="number" inputmode="numeric" min="1" placeholder="lvl" value="${vals.level ?? ''}">
+      <button class="set-remove" onclick="removeSetRow(this,'time')" title="Remove">×</button>`;
+  }
+  container.appendChild(row);
+}
+
+function removeSetRow(btn, type) {
+  btn.closest('.set-row').remove();
+  // Renumber remaining rows
+  const container = document.getElementById(type === 'weight' ? 'weight-rows' : 'time-rows');
+  Array.from(container.children).forEach((row, i) => {
+    row.querySelector('.set-num').textContent = i + 1;
+  });
+}
+
+function getSetRows(type) {
+  const container = document.getElementById(type === 'weight' ? 'weight-rows' : 'time-rows');
+  return Array.from(container.children).map(row => {
+    const inputs = row.querySelectorAll('input');
+    if (type === 'weight') {
+      return { weight: parseFloat(inputs[0].value)||null, reps: parseInt(inputs[1].value)||null };
+    } else {
+      return { duration: parseInt(inputs[0].value)||null, level: parseInt(inputs[1].value)||null };
+    }
+  });
+}
+
+function initSetRows(lastSession) {
+  // Clear rows
+  document.getElementById('weight-rows').innerHTML = '';
+  document.getElementById('time-rows').innerHTML = '';
+
+  if (lastSession && Array.isArray(lastSession.sets) && lastSession.sets.length) {
+    // Pre-fill from last session
+    const s = lastSession.sets[0];
+    const type = (s.duration !== undefined) ? 'time' : 'weight';
+    setType(type);
+    lastSession.sets.forEach(sv => addSetRow(type, sv));
+  } else {
+    // Default: 3 blank weight rows
+    setType('weight');
+    addSetRow('weight');
+    addSetRow('weight');
+    addSetRow('weight');
+  }
+}
+
+// ── Logging ───────────────────────────────────────────────────────────────────
 async function logSession() {
   const btn = document.getElementById('btn-log');
   btn.disabled = true;
   btn.innerHTML = '<span>⏳</span> Saving…';
 
+  const type = state.logType;
+  const rows = getSetRows(type);
+  const validRows = rows.filter(r =>
+    type === 'weight' ? (r.weight !== null || r.reps !== null)
+                      : (r.duration !== null)
+  );
+
+  if (!validRows.length) {
+    showToast('Fill in at least one set', 'error');
+    resetBtn(); return;
+  }
+
   const entry = {
-    machineId: state.machine.id,
+    machineId:   state.machine.id,
     machineName: state.machine.name,
-    gym: state.gym === 'fifth' ? '5th Street Gym' : 'Portofino Gym',
+    gym:  state.gym === 'fifth' ? '5th Street Gym' : 'Portofino Gym',
     room: state.room ? GYMS.portofino.rooms[state.room] : null,
     date: document.getElementById('log-date').value || todayStr(),
-    sets: parseInt(document.getElementById('log-sets').value) || null,
+    sets: validRows,
     notes: document.getElementById('log-notes').value.trim(),
   };
-
-  if (state.logType === 'weight') {
-    const w = document.getElementById('log-weight').value;
-    const r = document.getElementById('log-reps').value;
-    if (!w && !r) { showToast('Enter weight or reps', 'error'); resetBtn(); return; }
-    if (w) entry.weight = parseFloat(w);
-    if (r) entry.reps = parseInt(r);
-  } else {
-    const d = document.getElementById('log-duration').value;
-    const l = document.getElementById('log-level').value;
-    if (!d) { showToast('Enter duration', 'error'); resetBtn(); return; }
-    entry.duration = parseInt(d);
-    if (l) entry.level = parseInt(l);
-  }
 
   state.log.unshift(entry);
   const ok = await saveLog();
 
   if (ok) {
     showToast('Session saved! 💪', 'success');
-    // Refresh history display
     selectMachine(state.machine.id);
   } else {
-    state.log.shift(); // revert
+    state.log.shift();
   }
 
   resetBtn();
-
   function resetBtn() {
     btn.disabled = false;
     btn.innerHTML = '<span>💾</span> Save Session';
@@ -887,20 +1007,56 @@ function getHistory(machineId) {
 }
 
 function formatShort(s) {
+  // Used on machine grid cards — show last session in one line
+  if (!s) return '—';
+  if (Array.isArray(s.sets) && s.sets.length) {
+    const first = s.sets[0];
+    if (first.duration !== undefined) {
+      const mins = s.sets.map(r => r.duration).filter(Boolean);
+      return `${mins.reduce((a,b)=>a+b,0)} min`;
+    }
+    const weights = s.sets.map(r => r.weight).filter(v => v !== null && v !== undefined);
+    const reps    = s.sets.map(r => r.reps).filter(v => v !== null && v !== undefined);
+    const wStr = weights.length ? (Math.min(...weights) === Math.max(...weights)
+      ? `${weights[0]} lbs` : `${Math.min(...weights)}–${Math.max(...weights)} lbs`) : '';
+    const rStr = reps.length ? `${Math.min(...reps)}–${Math.max(...reps)} reps` : '';
+    return [wStr, rStr].filter(Boolean).join(' · ') || '—';
+  }
+  // Legacy flat format
   if (s.weight !== undefined && s.reps !== undefined) return `${s.weight} lbs × ${s.reps}`;
   if (s.weight !== undefined) return `${s.weight} lbs`;
   if (s.duration !== undefined) return `${s.duration} min`;
   return '—';
 }
 
-function formatFull(s) {
+function formatSummary(s) {
+  // Top-right on history item — e.g. "3 sets"
+  if (Array.isArray(s.sets)) return `${s.sets.length} set${s.sets.length !== 1 ? 's' : ''}`;
+  if (s.sets) return `${s.sets} sets`;
+  return '';
+}
+
+function formatSetsList(s) {
+  // Inline set-by-set detail shown below the date
+  if (Array.isArray(s.sets) && s.sets.length) {
+    return s.sets.map((r, i) => {
+      let val = '';
+      if (r.duration !== undefined) {
+        val = `${r.duration} min${r.level ? ` · lvl ${r.level}` : ''}`;
+      } else {
+        val = [r.weight !== null && r.weight !== undefined ? `${r.weight} lbs` : '',
+               r.reps   !== null && r.reps   !== undefined ? `${r.reps} reps`  : '']
+               .filter(Boolean).join(' × ');
+      }
+      return `<span>Set ${i+1}: ${val || '—'}</span>`;
+    }).join('');
+  }
+  // Legacy flat format
   const parts = [];
-  if (s.sets) parts.push(`${s.sets} sets`);
   if (s.weight !== undefined) parts.push(`${s.weight} lbs`);
-  if (s.reps !== undefined) parts.push(`${s.reps} reps`);
+  if (s.reps !== undefined)   parts.push(`${s.reps} reps`);
   if (s.duration !== undefined) parts.push(`${s.duration} min`);
-  if (s.level !== undefined) parts.push(`level ${s.level}`);
-  return parts.join(' · ') || '—';
+  return parts.map(p => `<span>${p}</span>`).join('');
 }
 
 function formatDate(str) {
