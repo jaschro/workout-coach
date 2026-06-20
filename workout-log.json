@@ -1,5 +1,27 @@
 [
   {
+    "machineId": "pm14",
+    "machineName": "Glute Isolator",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "sets": [
+      {
+        "weight": 10,
+        "reps": 10
+      },
+      {
+        "weight": 30,
+        "reps": 10
+      },
+      {
+        "weight": 50,
+        "reps": 10
+      }
+    ],
+    "notes": ""
+  },
+  {
     "machineId": "pm06",
     "machineName": "Seated Leg Curl Machine",
     "gym": "Portofino Gym",
