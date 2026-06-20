@@ -1,5 +1,27 @@
 [
   {
+    "machineId": "pm10",
+    "machineName": "Seated Biceps Curl Machine",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "sets": [
+      {
+        "weight": 25,
+        "reps": 10
+      },
+      {
+        "weight": 40,
+        "reps": 10
+      },
+      {
+        "weight": 55,
+        "reps": 10
+      }
+    ],
+    "notes": ""
+  },
+  {
     "machineId": "pm03",
     "machineName": "Seated Chest Press Machine",
     "gym": "Portofino Gym",
