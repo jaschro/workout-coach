@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Workout Coach</title>
+<style>
+  :root {
+    --primary: #1a56a4;
+    --primary-dark: #0f3a72;
+    --accent: #e8f0fb;
+    --surface: #ffffff;
+    --bg: #f2f4f7;
+    --text: #1a1a2e;
+    --text-muted: #6b7280;
+    --border: #e2e6ea;
+    --success: #16a34a;
+    --radius: 14px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--primary);
+    color: white;
+    padding: 16px 20px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .header .back-btn {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .header h1 { font-size: 18px; font-weight: 700; flex: 1; }
+  .header .settings-btn {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ── Screens ── */
+  .screen { display: none; padding: 16px; }
+  .screen.active { display: block; }
+
+  /* ── Gym Cards (Home) ── */
+  .gym-grid { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+  .gym-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px 20px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.15s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .gym-card:active { transform: scale(0.98); border-color: var(--primary); }
+  .gym-icon { font-size: 36px; flex-shrink: 0; }
+  .gym-info h2 { font-size: 18px; font-weight: 700; }
+  .gym-info p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ── Room Cards ── */
+  .room-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+  .room-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.15s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .room-card:active { transform: scale(0.98); border-color: var(--primary); }
+  .room-icon { font-size: 28px; flex-shrink: 0; }
+  .room-info h3 { font-size: 16px; font-weight: 700; }
+  .room-info p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ── Machine Grid ── */
+  .machine-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .machine-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: border-color 0.15s, transform 0.1s;
+  }
+  .machine-card:active { transform: scale(0.97); border-color: var(--primary); }
+  .machine-card img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    background: var(--bg);
+  }
+  .machine-card-body { padding: 8px 10px 10px; }
+  .machine-card-body h4 { font-size: 12px; font-weight: 700; line-height: 1.3; }
+  .machine-card-body .last-log {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 3px;
+  }
+  .machine-card-body .last-log.has-data { color: var(--success); }
+
+  /* ── Machine Detail ── */
+  #screen-machine .machine-photo {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-radius: var(--radius);
+    display: block;
+    margin-bottom: 14px;
+    background: var(--border);
+  }
+  .machine-detail-name {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .machine-detail-muscles {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+
+  /* ── History ── */
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .history-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .history-item {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 12px 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .history-date { font-size: 13px; color: var(--text-muted); }
+  .history-stats { font-size: 14px; font-weight: 700; color: var(--primary); }
+  .history-empty {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 8px 0;
+  }
+
+  /* ── Log Form ── */
+  .log-form {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+  }
+  .form-row { display: flex; gap: 10px; margin-bottom: 12px; }
+  .form-group { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+  .form-group label { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-group input, .form-group select, .form-group textarea {
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 16px; /* 16px prevents iOS zoom */
+    font-family: inherit;
+    background: var(--bg);
+    color: var(--text);
+    width: 100%;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+  }
+  .form-group textarea { resize: vertical; min-height: 60px; font-size: 14px; }
+
+  .type-toggle {
+    display: flex;
+    gap: 0;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .type-toggle button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .type-toggle button.active {
+    background: var(--primary);
+    color: white;
+  }
+
+  .btn-log {
+    width: 100%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn-log:active { transform: scale(0.98); background: var(--primary-dark); }
+  .btn-log:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  /* ── Settings Screen ── */
+  .settings-section {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+  }
+  .settings-section h3 { font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+  .settings-section input {
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: monospace;
+    background: var(--bg);
+    color: var(--text);
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .settings-section input:focus { outline: none; border-color: var(--primary); background: white; }
+  .btn-save-settings {
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+  }
+  .settings-note { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-top: 8px; }
+  .token-status { font-size: 13px; margin-bottom: 10px; padding: 8px 12px; border-radius: 8px; }
+  .token-status.ok { background: #dcfce7; color: #166534; }
+  .token-status.missing { background: #fef9c3; color: #854d0e; }
+
+  /* ── Toast ── */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: #1a1a2e;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+    z-index: 200;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.success { background: var(--success); }
+  .toast.error { background: #dc2626; }
+
+  /* ── Setup Banner ── */
+  .setup-banner {
+    background: #fef3c7;
+    border: 1.5px solid #f59e0b;
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #92400e;
+    line-height: 1.5;
+  }
+  .setup-banner strong { display: block; margin-bottom: 4px; }
+  .setup-banner a { color: var(--primary); font-weight: 700; cursor: pointer; text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     HEADER
+══════════════════════════════════════ -->
+<div class="header">
+  <button class="back-btn" id="back-btn" style="display:none" onclick="goBack()">‹</button>
+  <h1 id="header-title">Workout Coach</h1>
+  <button class="settings-btn" onclick="showSettings()" title="Settings">⚙</button>
+</div>
+
+<!-- ══════════════════════════════════════
+     HOME — Gym Selection
+══════════════════════════════════════ -->
+<div class="screen active" id="screen-home">
+  <div id="setup-banner-home" class="setup-banner" style="display:none">
+    <strong>⚠ Setup Required</strong>
+    A GitHub token is needed to save your workouts.
+    <a onclick="showSettings()">Tap here to add it →</a>
+  </div>
+  <div class="gym-grid">
+    <div class="gym-card" onclick="selectGym('fifth')">
+      <div class="gym-icon">🌤</div>
+      <div class="gym-info">
+        <h2>5th Street Gym</h2>
+        <p>Outdoor · 10 machines</p>
+      </div>
+    </div>
+    <div class="gym-card" onclick="selectGym('portofino')">
+      <div class="gym-icon">🏋️</div>
+      <div class="gym-info">
+        <h2>Portofino Gym</h2>
+        <p>Indoor · 3 rooms · 31 machines</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     ROOMS — Portofino
+══════════════════════════════════════ -->
+<div class="screen" id="screen-rooms">
+  <div class="room-grid">
+    <div class="room-card" onclick="selectRoom('machines')">
+      <div class="room-icon">⚙️</div>
+      <div class="room-info">
+        <h3>Machines Room</h3>
+        <p>17 selectorized machines</p>
+      </div>
+    </div>
+    <div class="room-card" onclick="selectRoom('weights')">
+      <div class="room-icon">🏋️</div>
+      <div class="room-info">
+        <h3>Weight Room</h3>
+        <p>8 machines &amp; free weights</p>
+      </div>
+    </div>
+    <div class="room-card" onclick="selectRoom('aerobic')">
+      <div class="room-icon">🚴</div>
+      <div class="room-info">
+        <h3>Aerobic Room</h3>
+        <p>6 cardio machines</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MACHINE LIST
+══════════════════════════════════════ -->
+<div class="screen" id="screen-machines">
+  <div class="machine-grid" id="machine-grid"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MACHINE DETAIL + LOG FORM
+══════════════════════════════════════ -->
+<div class="screen" id="screen-machine">
+  <img class="machine-photo" id="detail-photo" src="" alt="">
+  <div class="machine-detail-name" id="detail-name"></div>
+  <div class="machine-detail-muscles" id="detail-muscles"></div>
+
+  <div class="section-label">Last 3 Sessions</div>
+  <div class="history-list" id="history-list"></div>
+
+  <div class="section-label">Log Today</div>
+  <div class="log-form">
+    <div class="form-row">
+      <div class="form-group" style="flex:2">
+        <label>Date</label>
+        <input type="date" id="log-date">
+      </div>
+      <div class="form-group" style="flex:1">
+        <label>Sets</label>
+        <input type="number" id="log-sets" min="1" max="20" value="3" inputmode="numeric">
+      </div>
+    </div>
+
+    <div class="form-row" style="margin-bottom:8px">
+      <div class="form-group">
+        <label>Measure</label>
+        <div class="type-toggle">
+          <button class="active" id="toggle-weight" onclick="setType('weight')">Weight &amp; Reps</button>
+          <button id="toggle-time" onclick="setType('time')">Duration</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="weight-fields" class="form-row">
+      <div class="form-group">
+        <label>Weight (lbs)</label>
+        <input type="number" id="log-weight" min="0" step="5" inputmode="decimal" placeholder="e.g. 50">
+      </div>
+      <div class="form-group">
+        <label>Reps</label>
+        <input type="number" id="log-reps" min="1" max="100" inputmode="numeric" placeholder="e.g. 12">
+      </div>
+    </div>
+
+    <div id="time-fields" class="form-row" style="display:none">
+      <div class="form-group">
+        <label>Duration (min)</label>
+        <input type="number" id="log-duration" min="1" max="300" inputmode="numeric" placeholder="e.g. 30">
+      </div>
+      <div class="form-group">
+        <label>Level / Resistance</label>
+        <input type="number" id="log-level" min="1" max="30" inputmode="numeric" placeholder="e.g. 8">
+      </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom:14px">
+      <label>Notes (optional)</label>
+      <textarea id="log-notes" placeholder="How did it feel? Any adjustments?"></textarea>
+    </div>
+
+    <button class="btn-log" id="btn-log" onclick="logSession()">
+      <span>💾</span> Save Session
+    </button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SETTINGS
+══════════════════════════════════════ -->
+<div class="screen" id="screen-settings">
+  <div class="settings-section">
+    <h3>GitHub Access Token</h3>
+    <div id="token-status" class="token-status missing">⚠ No token saved — workouts can't be saved yet</div>
+    <input type="password" id="token-input" placeholder="github_pat_...">
+    <button class="btn-save-settings" onclick="saveToken()">Save Token</button>
+    <p class="settings-note">
+      Your token is stored only in this browser. It's never sent anywhere except to api.github.com to save your workout log.<br><br>
+      To create one: GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens → New token → select <em>workout-coach</em> repo → Contents: Read &amp; Write.
+    </p>
+  </div>
+  <div class="settings-section">
+    <h3>About</h3>
+    <p class="settings-note">Workout Coach stores all data in your GitHub repo at <strong>jaschro/workout-coach</strong>. Your workout history is always in <code>workout-log.json</code> in that repo.</p>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════
+const REPO_OWNER = 'jaschro';
+const REPO_NAME  = 'workout-coach';
+const LOG_PATH   = 'workout-log.json';
+const IMG_BASE   = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/images`;
+
+// ═══════════════════════════════════════════════════════
+// EQUIPMENT DATA
+// ═══════════════════════════════════════════════════════
+const GYMS = {
+  fifth: {
+    name: '5th Street Gym',
+    rooms: { default: '5th Street Gym' },
+    machines: [
+      { id: 'f01', name: 'Combined Exerciser',       muscles: 'Upper body — pull-ups, leg raises, dips',                                img: '5th-street/MB.7.61 Combined Exerciser.jpg' },
+      { id: 'f02', name: 'Decline Bench & Hyperext', muscles: 'Abdominals, back muscles, and glutes using bodyweight',                  img: '5th-street/MB.7.62.Decline Bench.jpg' },
+      { id: 'f03', name: 'Situp Bench (Incline)',    muscles: 'Abdominals, back muscles, and glutes using bodyweight',                  img: '5th-street/Incline Bench.Situps.jpg' },
+      { id: 'f04', name: 'Shoulder Press',           muscles: 'Middle deltoids, upper trapezius, and biceps',                          img: '5th-street/MB.7.63.Shoulder Press.jpg' },
+      { id: 'f05', name: 'Bench Press',              muscles: 'Chest, triceps, and front deltoids — full range of motion',             img: '5th-street/MB.7.64.Bench Press..jpg' },
+      { id: 'f06', name: 'Squat',                    muscles: 'Quadriceps femoris, gluteus medius, and gluteus maximus',               img: '5th-street/MB.7.65.Squat.jpg' },
+      { id: 'f07', name: 'Combo Lift',               muscles: 'Glutes, quads, adductors/abductors, traps, lats, posterior deltoids',   img: '5th-street/MB.7.62.ComboLift.jpg' },
+      { id: 'f08', name: 'Seated Tricep Dips',       muscles: 'Deltoid and tricep muscles with variable load',                         img: '5th-street/MB.7.67.Seated Tricep Dips..jpg' },
+      { id: 'f09', name: 'Horizontal Leg Press',     muscles: 'Quadriceps femoris, gluteus medius, and gluteus maximus',               img: '5th-street/MB.7.74.Leg Press.jpg' },
+      { id: 'f10', name: 'Incline Chest Press',      muscles: 'Chest and shoulder muscles with variable load',                         img: '5th-street/MB.7.75.Incline Chest Press.jpg' },
+    ]
+  },
+  portofino: {
+    name: 'Portofino Gym',
+    rooms: {
+      machines: 'Machines Room',
+      weights:  'Weight Room',
+      aerobic:  'Aerobic Room',
+    },
+    machinesByRoom: {
+      machines: [
+        { id: 'pm01', name: 'Adjustable Decline Abdominal Bench', muscles: 'Rectus abdominis (six-pack) and obliques',                          img: 'portofino/p-machines/1. Adjustable Decline Abdominal Bench.jpg' },
+        { id: 'pm02', name: 'Seated Row Machine',                  muscles: 'Lats, rhomboids, middle trapezius, rear deltoids, biceps',          img: 'portofino/p-machines/2. Seated Row Machine.jpg' },
+        { id: 'pm03', name: 'Seated Chest Press Machine',          muscles: 'Pectoralis major, anterior deltoids, and triceps',                  img: 'portofino/p-machines/3. Seated Chest Press Machine.jpg' },
+        { id: 'pm04', name: 'Pec Fly / Rear Delt Combo',          muscles: 'Fly: chest · Reverse fly: rear delts, rhomboids, mid trapezius',    img: 'portofino/p-machines/4. Pec Fly _ Rear Delt Combo.jpg' },
+        { id: 'pm05', name: 'Seated Leg Extension Machine',        muscles: 'Quadriceps (isolated)',                                             img: 'portofino/p-machines/5.  Seated Leg Extension Machine.jpg' },
+        { id: 'pm06', name: 'Seated Leg Curl Machine',             muscles: 'Hamstrings (isolated)',                                             img: 'portofino/p-machines/6.  Seated Leg Curl Machine.jpg' },
+        { id: 'pm07', name: 'Back Extension Bench',                muscles: 'Lower back, glutes, and hamstrings',                               img: 'portofino/p-machines/7. Back Extension Bench.jpg' },
+        { id: 'pm08', name: 'Seated Shoulder Press',               muscles: 'Deltoids and triceps',                                             img: 'portofino/p-machines/8. Seated Shoulder Press.jpg' },
+        { id: 'pm09', name: 'Functional Trainer (Cable Crossover)',muscles: 'Chest, back, arms, and core — highly versatile',                   img: 'portofino/p-machines/9. Functional Trainer (Cable Crossover).jpg' },
+        { id: 'pm10', name: 'Seated Biceps Curl Machine',          muscles: 'Biceps brachii',                                                   img: 'portofino/p-machines/10. Seated Biceps Curl Machine.jpg' },
+        { id: 'pm11', name: 'Hip Abduction Machine',               muscles: 'Outer glutes (gluteus medius) and outer thighs',                   img: 'portofino/p-machines/11. Hip Abduction Machine.jpg' },
+        { id: 'pm12', name: 'Hip Adduction Machine',               muscles: 'Inner thigh muscles (adductors)',                                  img: 'portofino/p-machines/12. Hip Adduction Machine.jpg' },
+        { id: 'pm13', name: 'Seated Abdominal Crunch Machine',     muscles: 'Upper and lower rectus abdominis (six-pack)',                      img: 'portofino/p-machines/13. Seated Abdominal Crunch Machine.jpg' },
+        { id: 'pm14', name: 'Glute Isolator',                      muscles: 'Glutes and upper hamstrings',                                     img: 'portofino/p-machines/14. Glute Isolator.jpg' },
+        { id: 'pm15', name: 'Power Plate Vibration Platform',      muscles: 'Core stability, balance, flexibility, and circulation',            img: 'portofino/p-machines/15. Power Plate Pro-Series Vibration Platform.jpg' },
+        { id: 'pm16', name: 'Pilates Reformer & Tower',            muscles: 'Deep core strength, flexibility, and alignment',                   img: 'portofino/p-machines/16. Pilates Reformer and Tower Machine.jpg' },
+        { id: 'pm17', name: 'Speed Bag',                           muscles: 'Hand-eye coordination, shoulder endurance, and reflexes',          img: 'portofino/p-machines/17. Speed Bag.jpg' },
+      ],
+      weights: [
+        { id: 'pw01', name: 'Assisted Pullup & Dip Machine',       muscles: 'Upper body — pull-ups, leg raises, dips',                         img: 'portofino/p-weight-room/1. Assisted Pullup and Dip Machine.jpg' },
+        { id: 'pw02', name: 'Lat Pulldown Machine',                 muscles: 'Latissimus dorsi, rhomboids, biceps',                             img: 'portofino/p-weight-room/2. Lat Pulldown Machine.jpg' },
+        { id: 'pw03', name: 'Seated Cable Row Machine',             muscles: 'Upper back — lats, rhomboids, trapezius, rear deltoids, biceps',  img: 'portofino/p-weight-room/3. Seated Cable Row Machine.jpg' },
+        { id: 'pw04', name: 'Seated Preacher Curl Bench',           muscles: 'Biceps (plate-loaded, elbows locked)',                            img: 'portofino/p-weight-room/4. Seated Preacher Curl Bench.jpg' },
+        { id: 'pw05', name: 'Adjustable Incline/Decline Benches',   muscles: 'Free weight support — chest presses, shoulder presses, rows',     img: 'portofino/p-weight-room/5. Adjustable Incline_Decline Benches.jpg' },
+        { id: 'pw06', name: 'Seated Leg Press Machine',             muscles: 'Quadriceps, glutes, and hamstrings',                              img: 'portofino/p-weight-room/6. Seated Leg Press Machine.jpg' },
+        { id: 'pw07', name: 'Bench Press',                          muscles: 'Chest, triceps, and front deltoids',                              img: 'portofino/p-weight-room/7. Bench Press.jpg' },
+        { id: 'pw08', name: 'Plate-Loaded Seated Calf Raise',       muscles: 'Soleus (lower calf) — isolated ankle extension',                 img: 'portofino/p-weight-room/8. Plate-Loaded Seated Calf Raise Machine.jpg' },
+      ],
+      aerobic: [
+        { id: 'pa01', name: 'Stair Climber',                        muscles: 'Glutes, quadriceps, hamstrings, and calves — high-intensity cardio', img: 'portofino/p-aerobic/1. Stair Climber.jpg' },
+        { id: 'pa02', name: 'Recumbent Stationary Bike',            muscles: 'Quadriceps, hamstrings, glutes, and calves — low-impact cardio',  img: 'portofino/p-aerobic/2. Precor Recumbent Stationary Bike.jpg' },
+        { id: 'pa03', name: 'Hydrow Indoor Rowing Machine',         muscles: '60% legs · 20% core · 20% arms & back — full body cardio',        img: 'portofino/p-aerobic/3. Hydrow Indoor Rowing Machine.jpg' },
+        { id: 'pa04', name: 'Peloton',                              muscles: 'Cardiovascular conditioning — quadriceps, hamstrings, calves',    img: 'portofino/p-aerobic/4. Peloton.jpg' },
+        { id: 'pa05', name: 'Treadmill',                            muscles: 'Cardiovascular conditioning — lower body endurance',              img: 'portofino/p-aerobic/5. Treadmill.jpg' },
+        { id: 'pa06', name: 'Elliptical Cross Trainer',             muscles: 'Low-impact full-body cardiovascular workout',                     img: 'portofino/p-aerobic/6. Elliptical Cross Trainer.jpg' },
+      ]
+    }
+  }
+};
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let state = {
+  gym: null,      // 'fifth' | 'portofino'
+  room: null,     // 'machines' | 'weights' | 'aerobic' | null
+  machine: null,  // machine object
+  logType: 'weight',
+  log: [],        // loaded from GitHub
+  logSha: null,   // GitHub file SHA for updates
+};
+
+let navStack = [];
+
+// ═══════════════════════════════════════════════════════
+// GITHUB API
+// ═══════════════════════════════════════════════════════
+function getToken() {
+  return localStorage.getItem('gh_token') || '';
+}
+
+async function fetchLog() {
+  const token = getToken();
+  if (!token) return;
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${LOG_PATH}`,
+      { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } }
+    );
+    if (res.status === 404) { state.log = []; state.logSha = null; return; }
+    if (!res.ok) throw new Error('GitHub fetch failed');
+    const data = await res.json();
+    state.logSha = data.sha;
+    state.log = JSON.parse(atob(data.content.replace(/\n/g,'')));
+  } catch(e) {
+    console.error('fetchLog:', e);
+  }
+}
+
+async function saveLog() {
+  const token = getToken();
+  if (!token) { showToast('No token — go to Settings first', 'error'); return false; }
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(state.log, null, 2))));
+  const body = { message: 'Log workout session', content };
+  if (state.logSha) body.sha = state.logSha;
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${LOG_PATH}`,
+      {
+        method: 'PUT',
+        headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      }
+    );
+    if (!res.ok) { const e = await res.json(); throw new Error(e.message); }
+    const data = await res.json();
+    state.logSha = data.content.sha;
+    return true;
+  } catch(e) {
+    showToast('Save failed: ' + e.message, 'error');
+    return false;
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════
+function showScreen(id, title, showBack=true) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  document.getElementById('header-title').textContent = title;
+  document.getElementById('back-btn').style.display = showBack ? 'flex' : 'none';
+}
+
+function goBack() {
+  if (!navStack.length) return;
+  const prev = navStack.pop();
+  prev();
+}
+
+function push(fn) { navStack.push(fn); }
+
+// ═══════════════════════════════════════════════════════
+// GYM → ROOM → MACHINE
+// ═══════════════════════════════════════════════════════
+function selectGym(gymKey) {
+  state.gym = gymKey;
+  const gym = GYMS[gymKey];
+
+  if (gymKey === 'fifth') {
+    push(() => showHome());
+    renderMachineList(gym.machines, gym.name);
+    showScreen('machines', gym.name);
+  } else {
+    push(() => showHome());
+    showScreen('rooms', 'Portofino Gym');
+  }
+}
+
+function selectRoom(roomKey) {
+  state.room = roomKey;
+  const gym = GYMS.portofino;
+  const roomName = gym.rooms[roomKey];
+  const machines = gym.machinesByRoom[roomKey];
+  push(() => { showScreen('rooms','Portofino Gym'); });
+  renderMachineList(machines, roomName);
+  showScreen('machines', roomName);
+}
+
+function renderMachineList(machines, title) {
+  const grid = document.getElementById('machine-grid');
+  grid.innerHTML = machines.map(m => {
+    const history = getHistory(m.id);
+    const last = history[0];
+    const lastText = last ? formatShort(last) : 'No sessions yet';
+    const hasData = !!last;
+    return `
+      <div class="machine-card" onclick="selectMachine('${m.id}')">
+        <img src="${IMG_BASE}/${encodeImagePath(m.img)}" alt="${m.name}" loading="lazy"
+             onerror="this.style.background='#e5e7eb';this.style.minHeight='120px'">
+        <div class="machine-card-body">
+          <h4>${m.name}</h4>
+          <div class="last-log ${hasData?'has-data':''}">${lastText}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function selectMachine(machineId) {
+  const machine = findMachine(machineId);
+  if (!machine) return;
+  state.machine = machine;
+
+  document.getElementById('detail-photo').src = `${IMG_BASE}/${encodeImagePath(machine.img)}`;
+  document.getElementById('detail-name').textContent = machine.name;
+  document.getElementById('detail-muscles').textContent = machine.muscles;
+
+  // History
+  const history = getHistory(machineId).slice(0,3);
+  const histEl = document.getElementById('history-list');
+  if (!history.length) {
+    histEl.innerHTML = '<div class="history-empty">No sessions recorded yet — be the first!</div>';
+  } else {
+    histEl.innerHTML = history.map(s => `
+      <div class="history-item">
+        <div class="history-date">${formatDate(s.date)}</div>
+        <div class="history-stats">${formatFull(s)}</div>
+      </div>`).join('');
+  }
+
+  // Pre-fill date
+  document.getElementById('log-date').value = todayStr();
+
+  // Reset form
+  document.getElementById('log-weight').value = '';
+  document.getElementById('log-reps').value = '';
+  document.getElementById('log-duration').value = '';
+  document.getElementById('log-level').value = '';
+  document.getElementById('log-notes').value = '';
+  document.getElementById('log-sets').value = '3';
+
+  // Pre-fill weight/reps from last session
+  if (history[0]) {
+    if (history[0].weight !== undefined) document.getElementById('log-weight').value = history[0].weight;
+    if (history[0].reps !== undefined) document.getElementById('log-reps').value = history[0].reps;
+    if (history[0].sets !== undefined) document.getElementById('log-sets').value = history[0].sets;
+    if (history[0].duration !== undefined) { setType('time'); document.getElementById('log-duration').value = history[0].duration; }
+    if (history[0].level !== undefined) document.getElementById('log-level').value = history[0].level;
+  }
+
+  const prevScreen = state.gym === 'fifth' ? '5th Street Gym' : (GYMS.portofino.rooms[state.room]);
+  push(() => { showScreen('machines', prevScreen); });
+  showScreen('machine', machine.name);
+}
+
+// ═══════════════════════════════════════════════════════
+// LOGGING
+// ═══════════════════════════════════════════════════════
+function setType(type) {
+  state.logType = type;
+  document.getElementById('toggle-weight').className = type === 'weight' ? 'active' : '';
+  document.getElementById('toggle-time').className   = type === 'time'   ? 'active' : '';
+  document.getElementById('weight-fields').style.display = type === 'weight' ? 'flex' : 'none';
+  document.getElementById('time-fields').style.display   = type === 'time'   ? 'flex' : 'none';
+}
+
+async function logSession() {
+  const btn = document.getElementById('btn-log');
+  btn.disabled = true;
+  btn.innerHTML = '<span>⏳</span> Saving…';
+
+  const entry = {
+    machineId: state.machine.id,
+    machineName: state.machine.name,
+    gym: state.gym === 'fifth' ? '5th Street Gym' : 'Portofino Gym',
+    room: state.room ? GYMS.portofino.rooms[state.room] : null,
+    date: document.getElementById('log-date').value || todayStr(),
+    sets: parseInt(document.getElementById('log-sets').value) || null,
+    notes: document.getElementById('log-notes').value.trim(),
+  };
+
+  if (state.logType === 'weight') {
+    const w = document.getElementById('log-weight').value;
+    const r = document.getElementById('log-reps').value;
+    if (!w && !r) { showToast('Enter weight or reps', 'error'); resetBtn(); return; }
+    if (w) entry.weight = parseFloat(w);
+    if (r) entry.reps = parseInt(r);
+  } else {
+    const d = document.getElementById('log-duration').value;
+    const l = document.getElementById('log-level').value;
+    if (!d) { showToast('Enter duration', 'error'); resetBtn(); return; }
+    entry.duration = parseInt(d);
+    if (l) entry.level = parseInt(l);
+  }
+
+  state.log.unshift(entry);
+  const ok = await saveLog();
+
+  if (ok) {
+    showToast('Session saved! 💪', 'success');
+    // Refresh history display
+    selectMachine(state.machine.id);
+  } else {
+    state.log.shift(); // revert
+  }
+
+  resetBtn();
+
+  function resetBtn() {
+    btn.disabled = false;
+    btn.innerHTML = '<span>💾</span> Save Session';
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// SETTINGS
+// ═══════════════════════════════════════════════════════
+function showSettings() {
+  const token = getToken();
+  const statusEl = document.getElementById('token-status');
+  if (token) {
+    statusEl.className = 'token-status ok';
+    statusEl.textContent = '✓ Token saved — workouts will sync to GitHub';
+    document.getElementById('token-input').value = '';
+    document.getElementById('token-input').placeholder = '(token already saved — paste new one to replace)';
+  } else {
+    statusEl.className = 'token-status missing';
+    statusEl.textContent = '⚠ No token saved — workouts can\'t be saved yet';
+    document.getElementById('token-input').placeholder = 'github_pat_...';
+  }
+  push(() => showHome());
+  showScreen('settings', 'Settings');
+}
+
+function saveToken() {
+  const val = document.getElementById('token-input').value.trim();
+  if (!val) { showToast('Paste your token first', 'error'); return; }
+  localStorage.setItem('gh_token', val);
+  showToast('Token saved!', 'success');
+  fetchLog();
+  const statusEl = document.getElementById('token-status');
+  statusEl.className = 'token-status ok';
+  statusEl.textContent = '✓ Token saved — workouts will sync to GitHub';
+  document.getElementById('token-input').value = '';
+  document.getElementById('token-input').placeholder = '(token already saved — paste new one to replace)';
+}
+
+// ═══════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════
+function showHome() {
+  navStack = [];
+  showScreen('home', 'Workout Coach', false);
+  const hasToken = !!getToken();
+  document.getElementById('setup-banner-home').style.display = hasToken ? 'none' : 'block';
+}
+
+function findMachine(id) {
+  // Search all gyms/rooms
+  for (const gym of Object.values(GYMS)) {
+    if (gym.machines) {
+      const m = gym.machines.find(x => x.id === id);
+      if (m) return m;
+    }
+    if (gym.machinesByRoom) {
+      for (const room of Object.values(gym.machinesByRoom)) {
+        const m = room.find(x => x.id === id);
+        if (m) return m;
+      }
+    }
+  }
+  return null;
+}
+
+function getHistory(machineId) {
+  return state.log
+    .filter(s => s.machineId === machineId)
+    .sort((a,b) => b.date.localeCompare(a.date));
+}
+
+function formatShort(s) {
+  if (s.weight !== undefined && s.reps !== undefined) return `${s.weight} lbs × ${s.reps}`;
+  if (s.weight !== undefined) return `${s.weight} lbs`;
+  if (s.duration !== undefined) return `${s.duration} min`;
+  return '—';
+}
+
+function formatFull(s) {
+  const parts = [];
+  if (s.sets) parts.push(`${s.sets} sets`);
+  if (s.weight !== undefined) parts.push(`${s.weight} lbs`);
+  if (s.reps !== undefined) parts.push(`${s.reps} reps`);
+  if (s.duration !== undefined) parts.push(`${s.duration} min`);
+  if (s.level !== undefined) parts.push(`level ${s.level}`);
+  return parts.join(' · ') || '—';
+}
+
+function formatDate(str) {
+  if (!str) return '';
+  const [y,m,d] = str.split('-');
+  return new Date(y,m-1,d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+}
+
+function todayStr() {
+  return new Date().toISOString().slice(0,10);
+}
+
+function encodeImagePath(path) {
+  return path.split('/').map(p => encodeURIComponent(p)).join('/');
+}
+
+function showToast(msg, type='') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show ' + type;
+  setTimeout(() => el.className = 'toast', 3000);
+}
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+(async function init() {
+  showHome();
+  await fetchLog();
+})();
+</script>
+</body>
+</html>
