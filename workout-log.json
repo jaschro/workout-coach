@@ -1,5 +1,23 @@
 [
   {
+    "machineId": "pm07",
+    "machineName": "Back Extension Bench",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "sets": [
+      {
+        "weight": null,
+        "reps": 15
+      },
+      {
+        "weight": null,
+        "reps": 15
+      }
+    ],
+    "notes": ""
+  },
+  {
     "machineId": "pm04",
     "machineName": "Pec Fly / Rear Delt Combo",
     "gym": "Portofino Gym",
