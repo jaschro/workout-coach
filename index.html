@@ -744,6 +744,20 @@ function decodeB64Utf8(b64) {
 // ═══════════════════════════════════════════════════════
 // EQUIPMENT
 // ═══════════════════════════════════════════════════════
+
+// Detect garbled emoji (real emoji have code points >= 0x1000; garbled bytes don't)
+function repairEquipmentIcons(equipment) {
+  const ok = icon => icon && icon.codePointAt(0) >= 0x1000;
+  let changed = false;
+  for (const gym of equipment) {
+    if (!ok(gym.icon)) { gym.icon = '🏋️'; changed = true; }
+    for (const room of gym.rooms) {
+      if (!ok(room.icon)) { room.icon = '🏋️'; changed = true; }
+    }
+  }
+  return changed;
+}
+
 async function fetchEquipment() {
   const token = getToken();
   if (!token) { renderHome(); return; }
@@ -752,6 +766,10 @@ async function fetchEquipment() {
     if (data) {
       state.equipmentSha = data.sha;
       state.equipment = JSON.parse(decodeB64Utf8(data.content));
+      // One-time repair: fix any emoji that were saved while the decoder was broken
+      if (repairEquipmentIcons(state.equipment)) {
+        await saveEquipment('Fix emoji encoding');
+      }
     } else {
       // First run: bootstrap equipment.json from fallback
       state.equipment = FALLBACK_EQUIPMENT;
