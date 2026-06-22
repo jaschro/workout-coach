@@ -54,11 +54,15 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 print("Uploading files...\n")
 
 # Public repo — app code only
-upload(CODE_REPO, "index.html", os.path.join(HERE, "index.html"), "Point data at private repo")
+upload(CODE_REPO, "index.html", os.path.join(HERE, "index.html"), "Add equipment management feature")
 
 # Private repo — data files
 upload(DATA_REPO, "workout-log.json", os.path.join(HERE, "workout-log.json"), "Migrate workout log data")
 upload(DATA_REPO, "workout-log.csv",  os.path.join(HERE, "workout-log.csv"),  "Migrate workout log CSV")
+
+# equipment.json only needs uploading once (bootstrap); the app maintains it after that.
+# Uncomment the line below if you want to reset equipment.json from this file:
+# upload(DATA_REPO, "equipment.json", os.path.join(HERE, "equipment.json"), "Update equipment list")
 
 print("\nDone.")
 print("\nIMPORTANT: Your PAT needs access to both repos.")

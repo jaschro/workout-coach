@@ -17,6 +17,7 @@
     --text-muted: #6b7280;
     --border: #e2e6ea;
     --success: #16a34a;
+    --danger: #dc2626;
     --radius: 14px;
     --shadow: 0 2px 12px rgba(0,0,0,0.10);
   }
@@ -49,29 +50,20 @@
     background: rgba(255,255,255,0.2);
     border: none;
     color: white;
-    width: 36px;
-    height: 36px;
+    width: 36px; height: 36px;
     border-radius: 50%;
     font-size: 20px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
   .header h1 { font-size: 18px; font-weight: 700; flex: 1; }
   .header .settings-btn {
     background: rgba(255,255,255,0.2);
-    border: none;
-    color: white;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border: none; color: white;
+    width: 36px; height: 36px;
+    border-radius: 50%; font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
 
@@ -79,7 +71,7 @@
   .screen { display: none; padding: 16px; }
   .screen.active { display: block; }
 
-  /* ── Gym Cards (Home) ── */
+  /* ── Gym Cards ── */
   .gym-grid { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
   .gym-card {
     background: var(--surface);
@@ -89,9 +81,7 @@
     cursor: pointer;
     border: 2px solid transparent;
     transition: border-color 0.15s, transform 0.1s;
-    display: flex;
-    align-items: center;
-    gap: 16px;
+    display: flex; align-items: center; gap: 16px;
   }
   .gym-card:active { transform: scale(0.98); border-color: var(--primary); }
   .gym-icon { font-size: 36px; flex-shrink: 0; }
@@ -104,13 +94,10 @@
     background: var(--surface);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    padding: 20px;
-    cursor: pointer;
+    padding: 20px; cursor: pointer;
     border: 2px solid transparent;
     transition: border-color 0.15s, transform 0.1s;
-    display: flex;
-    align-items: center;
-    gap: 14px;
+    display: flex; align-items: center; gap: 14px;
   }
   .room-card:active { transform: scale(0.98); border-color: var(--primary); }
   .room-icon { font-size: 28px; flex-shrink: 0; }
@@ -121,316 +108,290 @@
   .machine-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-top: 4px;
+    gap: 12px; margin-top: 4px;
   }
   .machine-card {
     background: var(--surface);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    cursor: pointer;
-    overflow: hidden;
+    cursor: pointer; overflow: hidden;
     border: 2px solid transparent;
     transition: border-color 0.15s, transform 0.1s;
   }
   .machine-card:active { transform: scale(0.97); border-color: var(--primary); }
   .machine-card img {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    display: block;
-    background: var(--bg);
+    width: 100%; aspect-ratio: 4/3; object-fit: cover;
+    display: block; background: var(--bg);
   }
   .machine-card-body { padding: 8px 10px 10px; }
   .machine-card-body h4 { font-size: 12px; font-weight: 700; line-height: 1.3; }
-  .machine-card-body .last-log {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 3px;
-  }
+  .machine-card-body .last-log { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
   .machine-card-body .last-log.has-data { color: var(--success); }
 
   /* ── Machine Detail ── */
   #screen-machine .machine-photo {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    border-radius: var(--radius);
-    display: block;
-    margin-bottom: 14px;
-    background: var(--border);
+    width: 100%; aspect-ratio: 4/3; object-fit: cover;
+    border-radius: var(--radius); display: block;
+    margin-bottom: 14px; background: var(--border);
   }
-  .machine-detail-name {
-    font-size: 20px;
-    font-weight: 800;
-    margin-bottom: 4px;
-  }
-  .machine-detail-muscles {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin-bottom: 18px;
-    line-height: 1.5;
-  }
+  .machine-detail-name { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+  .machine-detail-muscles { font-size: 13px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.5; }
 
   /* ── History ── */
   .section-label {
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: var(--text-muted);
-    margin-bottom: 8px;
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.8px;
+    color: var(--text-muted); margin-bottom: 8px;
   }
   .history-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
   .history-item {
-    background: var(--surface);
-    border-radius: 10px;
-    padding: 12px 14px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background: var(--surface); border-radius: 10px;
+    padding: 12px 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    display: flex; justify-content: space-between; align-items: center;
   }
   .history-date { font-size: 13px; color: var(--text-muted); }
   .history-stats { font-size: 14px; font-weight: 700; color: var(--primary); }
-  .history-empty {
-    font-size: 13px;
-    color: var(--text-muted);
-    font-style: italic;
-    padding: 8px 0;
+  .history-empty { font-size: 13px; color: var(--text-muted); font-style: italic; padding: 8px 0; }
+  .history-sets { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.6; }
+  .history-sets span { display: inline-block; margin-right: 10px; }
+  .history-actions { display: flex; gap: 6px; flex-shrink: 0; }
+  .history-actions button {
+    background: none; border: 1.5px solid var(--border);
+    border-radius: 7px; padding: 4px 9px;
+    font-size: 13px; cursor: pointer; color: var(--text-muted); line-height: 1;
   }
+  .history-actions .btn-edit:active  { background: var(--accent); color: var(--primary); }
+  .history-actions .btn-delete:active { background: #fee2e2; color: var(--danger); border-color: var(--danger); }
 
   /* ── Log Form ── */
   .log-form {
-    background: var(--surface);
-    border-radius: var(--radius);
-    padding: 16px;
-    box-shadow: var(--shadow);
-    margin-bottom: 20px;
+    background: var(--surface); border-radius: var(--radius);
+    padding: 16px; box-shadow: var(--shadow); margin-bottom: 20px;
   }
   .form-row { display: flex; gap: 10px; margin-bottom: 12px; }
   .form-group { flex: 1; display: flex; flex-direction: column; gap: 5px; }
   .form-group label { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
   .form-group input, .form-group select, .form-group textarea {
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 12px;
-    font-size: 16px; /* 16px prevents iOS zoom */
-    font-family: inherit;
-    background: var(--bg);
-    color: var(--text);
-    width: 100%;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    padding: 10px 12px; font-size: 16px;
+    font-family: inherit; background: var(--bg); color: var(--text); width: 100%;
   }
   .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-    outline: none;
-    border-color: var(--primary);
-    background: white;
+    outline: none; border-color: var(--primary); background: white;
   }
   .form-group textarea { resize: vertical; min-height: 60px; font-size: 14px; }
 
   .type-toggle {
-    display: flex;
-    gap: 0;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    background: var(--bg);
+    display: flex; gap: 0;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    overflow: hidden; background: var(--bg);
   }
   .type-toggle button {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    background: transparent;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-muted);
-    cursor: pointer;
+    flex: 1; padding: 10px; border: none; background: transparent;
+    font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer;
     transition: background 0.15s, color 0.15s;
   }
-  .type-toggle button.active {
-    background: var(--primary);
-    color: white;
-  }
+  .type-toggle button.active { background: var(--primary); color: white; }
 
   /* ── Sets Table ── */
   .sets-table { margin-bottom: 14px; }
   .sets-header {
-    display: grid;
-    grid-template-columns: 28px 1fr 1fr 32px;
-    gap: 6px;
-    padding: 0 2px 6px;
+    display: grid; grid-template-columns: 28px 1fr 1fr 32px;
+    gap: 6px; padding: 0 2px 6px;
   }
-  .sets-header span {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text-muted);
-  }
+  .sets-header span { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
   .set-row {
-    display: grid;
-    grid-template-columns: 28px 1fr 1fr 32px;
-    gap: 6px;
-    margin-bottom: 8px;
-    align-items: center;
+    display: grid; grid-template-columns: 28px 1fr 1fr 32px;
+    gap: 6px; margin-bottom: 8px; align-items: center;
   }
-  .set-num {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-align: center;
-    padding-top: 2px;
-  }
+  .set-num { font-size: 13px; font-weight: 700; color: var(--text-muted); text-align: center; padding-top: 2px; }
   .set-row input {
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 8px;
-    font-size: 16px;
-    font-family: inherit;
-    background: var(--bg);
-    color: var(--text);
-    width: 100%;
-    text-align: center;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    padding: 10px 8px; font-size: 16px; font-family: inherit;
+    background: var(--bg); color: var(--text); width: 100%; text-align: center;
   }
-  .set-row input:focus {
-    outline: none;
-    border-color: var(--primary);
-    background: white;
-  }
+  .set-row input:focus { outline: none; border-color: var(--primary); background: white; }
   .set-remove {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    font-size: 20px;
-    cursor: pointer;
-    line-height: 1;
-    padding: 4px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: none; border: none; color: var(--text-muted);
+    font-size: 20px; cursor: pointer; line-height: 1; padding: 4px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
   }
   .set-remove:active { background: var(--border); }
   .btn-add-set {
-    width: 100%;
-    background: none;
-    border: 1.5px dashed var(--border);
-    border-radius: 8px;
-    padding: 9px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--primary);
-    cursor: pointer;
-    margin-bottom: 4px;
+    width: 100%; background: none;
+    border: 1.5px dashed var(--border); border-radius: 8px;
+    padding: 9px; font-size: 13px; font-weight: 600;
+    color: var(--primary); cursor: pointer; margin-bottom: 4px;
   }
   .btn-add-set:active { background: var(--accent); }
 
-  /* ── History sets ── */
-  .history-sets { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.6; }
-  .history-sets span { display: inline-block; margin-right: 10px; }
-
-  /* ── History action buttons ── */
-  .history-actions { display: flex; gap: 6px; flex-shrink: 0; }
-  .history-actions button {
-    background: none;
-    border: 1.5px solid var(--border);
-    border-radius: 7px;
-    padding: 4px 9px;
-    font-size: 13px;
-    cursor: pointer;
-    color: var(--text-muted);
-    line-height: 1;
-  }
-  .history-actions .btn-edit:active  { background: var(--accent); color: var(--primary); }
-  .history-actions .btn-delete:active { background: #fee2e2; color: #dc2626; border-color: #dc2626; }
-
+  /* ── Log Button ── */
   .btn-log {
-    width: 100%;
-    background: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 16px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
+    width: 100%; background: var(--primary); color: white;
+    border: none; border-radius: 12px; padding: 16px;
+    font-size: 16px; font-weight: 700; cursor: pointer;
     transition: background 0.15s, transform 0.1s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-bottom: 20px;
   }
   .btn-log:active { transform: scale(0.98); background: var(--primary-dark); }
   .btn-log:disabled { opacity: 0.6; cursor: not-allowed; }
 
-  /* ── Settings Screen ── */
+  /* ── Settings ── */
   .settings-section {
-    background: var(--surface);
-    border-radius: var(--radius);
-    padding: 16px;
-    box-shadow: var(--shadow);
-    margin-bottom: 16px;
+    background: var(--surface); border-radius: var(--radius);
+    padding: 16px; box-shadow: var(--shadow); margin-bottom: 16px;
   }
   .settings-section h3 { font-size: 14px; font-weight: 700; margin-bottom: 12px; }
   .settings-section input {
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 12px;
-    font-size: 14px;
-    font-family: monospace;
-    background: var(--bg);
-    color: var(--text);
-    width: 100%;
-    margin-bottom: 10px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    padding: 10px 12px; font-size: 14px; font-family: monospace;
+    background: var(--bg); color: var(--text); width: 100%; margin-bottom: 10px;
   }
   .settings-section input:focus { outline: none; border-color: var(--primary); background: white; }
   .btn-save-settings {
-    background: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    width: 100%;
+    background: var(--primary); color: white; border: none;
+    border-radius: 8px; padding: 10px 20px;
+    font-size: 14px; font-weight: 700; cursor: pointer; width: 100%;
   }
   .settings-note { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-top: 8px; }
   .token-status { font-size: 13px; margin-bottom: 10px; padding: 8px 12px; border-radius: 8px; }
   .token-status.ok { background: #dcfce7; color: #166534; }
   .token-status.missing { background: #fef9c3; color: #854d0e; }
 
+  /* ── Manage Equipment Screen ── */
+  .equip-gym {
+    background: var(--surface); border-radius: var(--radius);
+    box-shadow: var(--shadow); margin-bottom: 16px; overflow: hidden;
+  }
+  .equip-gym-header {
+    background: var(--primary); color: white;
+    padding: 12px 16px; font-size: 15px; font-weight: 700;
+  }
+  .equip-room { border-bottom: 1px solid var(--border); }
+  .equip-room:last-of-type { border-bottom: none; }
+  .equip-room-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 16px; background: var(--accent);
+    font-size: 13px; font-weight: 700; color: var(--primary);
+  }
+  .equip-btn-add-machine {
+    background: var(--primary); color: white; border: none;
+    border-radius: 6px; padding: 5px 10px; font-size: 12px;
+    font-weight: 700; cursor: pointer;
+  }
+  .equip-machine-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 16px; border-bottom: 1px solid var(--border);
+  }
+  .equip-machine-row:last-child { border-bottom: none; }
+  .equip-machine-info { flex: 1; min-width: 0; }
+  .equip-machine-info strong { display: block; font-size: 13px; }
+  .equip-machine-info span { font-size: 11px; color: var(--text-muted); display: block; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .equip-machine-actions { display: flex; gap: 6px; flex-shrink: 0; margin-left: 8px; }
+  .equip-machine-actions button {
+    background: none; border: 1.5px solid var(--border); border-radius: 7px;
+    padding: 5px 10px; font-size: 13px; cursor: pointer;
+  }
+  .equip-machine-actions button:first-child:active { background: var(--accent); }
+  .equip-machine-actions button:last-child { color: var(--danger); border-color: #fca5a5; }
+  .equip-machine-actions button:last-child:active { background: #fee2e2; }
+  .equip-btn-add-room {
+    display: block; width: 100%; background: none;
+    border: none; border-top: 1px dashed var(--border);
+    padding: 10px 16px; font-size: 12px; font-weight: 600;
+    color: var(--primary); cursor: pointer; text-align: left;
+  }
+  .equip-btn-add-room:active { background: var(--accent); }
+  .btn-add-gym {
+    width: 100%; background: var(--primary); color: white;
+    border: none; border-radius: 12px; padding: 14px;
+    font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 4px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .btn-add-gym:active { background: var(--primary-dark); }
+  .btn-manage-equip {
+    width: 100%; background: var(--accent); color: var(--primary);
+    border: 1.5px solid var(--primary); border-radius: 8px;
+    padding: 11px 20px; font-size: 14px; font-weight: 700; cursor: pointer;
+  }
+  .btn-manage-equip:active { background: var(--primary); color: white; }
+
+  /* ── Modal (Bottom Sheet) ── */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 300;
+    display: flex; align-items: flex-end;
+  }
+  .modal-sheet {
+    background: var(--surface);
+    border-radius: 20px 20px 0 0;
+    padding: 20px; width: 100%;
+    max-height: 90vh; overflow-y: auto;
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+  }
+  .modal-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px;
+  }
+  .modal-header h2 { font-size: 18px; font-weight: 800; }
+  .modal-close {
+    background: var(--bg); border: none; border-radius: 50%;
+    width: 32px; height: 32px; font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted);
+  }
+  .modal-form-group { margin-bottom: 14px; display: flex; flex-direction: column; gap: 5px; }
+  .modal-form-group label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+  .modal-form-group input, .modal-form-group select {
+    border: 1.5px solid var(--border); border-radius: 8px;
+    padding: 10px 12px; font-size: 16px; font-family: inherit;
+    background: var(--bg); color: var(--text); width: 100%;
+  }
+  .modal-form-group input:focus, .modal-form-group select:focus { outline: none; border-color: var(--primary); background: white; }
+  .modal-photo-wrap { margin-bottom: 14px; }
+  .modal-photo-wrap img {
+    width: 100%; border-radius: 10px; object-fit: cover;
+    aspect-ratio: 4/3; display: block; background: var(--border);
+    margin-bottom: 8px;
+  }
+  .modal-photo-wrap img[src=''] { display: none; }
+  .btn-photo {
+    width: 100%; background: var(--bg); color: var(--primary);
+    border: 1.5px solid var(--primary); border-radius: 8px;
+    padding: 10px; font-size: 14px; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .btn-photo:active { background: var(--accent); }
+  .modal-btns { display: flex; gap: 10px; margin-top: 8px; }
+  .btn-secondary {
+    flex: 1; background: var(--bg); color: var(--text-muted);
+    border: 1.5px solid var(--border); border-radius: 10px;
+    padding: 13px; font-size: 15px; font-weight: 700; cursor: pointer;
+  }
+  .btn-secondary:active { background: var(--border); }
+  .modal-btns .btn-log { flex: 2; margin-bottom: 0; }
+
   /* ── Toast ── */
   .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
+    position: fixed; bottom: 24px; left: 50%;
     transform: translateX(-50%) translateY(80px);
-    background: #1a1a2e;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 24px;
-    font-size: 14px;
-    font-weight: 600;
+    background: #1a1a2e; color: white;
+    padding: 12px 20px; border-radius: 24px;
+    font-size: 14px; font-weight: 600;
     box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    transition: transform 0.3s ease;
-    z-index: 200;
-    white-space: nowrap;
+    transition: transform 0.3s ease; z-index: 400; white-space: nowrap;
   }
   .toast.show { transform: translateX(-50%) translateY(0); }
   .toast.success { background: var(--success); }
-  .toast.error { background: #dc2626; }
+  .toast.error { background: var(--danger); }
 
   /* ── Setup Banner ── */
   .setup-banner {
-    background: #fef3c7;
-    border: 1.5px solid #f59e0b;
-    border-radius: var(--radius);
-    padding: 14px 16px;
-    margin-bottom: 16px;
-    font-size: 13px;
-    color: #92400e;
-    line-height: 1.5;
+    background: #fef3c7; border: 1.5px solid #f59e0b;
+    border-radius: var(--radius); padding: 14px 16px;
+    margin-bottom: 16px; font-size: 13px; color: #92400e; line-height: 1.5;
   }
   .setup-banner strong { display: block; margin-bottom: 4px; }
   .setup-banner a { color: var(--primary); font-weight: 700; cursor: pointer; text-decoration: underline; }
@@ -456,51 +417,14 @@
     A GitHub token is needed to save your workouts.
     <a onclick="showSettings()">Tap here to add it →</a>
   </div>
-  <div class="gym-grid">
-    <div class="gym-card" onclick="selectGym('fifth')">
-      <div class="gym-icon">🌤</div>
-      <div class="gym-info">
-        <h2>5th Street Gym</h2>
-        <p>Outdoor · 10 machines</p>
-      </div>
-    </div>
-    <div class="gym-card" onclick="selectGym('portofino')">
-      <div class="gym-icon">🏋️</div>
-      <div class="gym-info">
-        <h2>Portofino Gym</h2>
-        <p>Indoor · 3 rooms · 31 machines</p>
-      </div>
-    </div>
-  </div>
+  <div id="gym-cards-container" class="gym-grid"></div>
 </div>
 
 <!-- ══════════════════════════════════════
-     ROOMS — Portofino
+     ROOMS
 ══════════════════════════════════════ -->
 <div class="screen" id="screen-rooms">
-  <div class="room-grid">
-    <div class="room-card" onclick="selectRoom('machines')">
-      <div class="room-icon">⚙️</div>
-      <div class="room-info">
-        <h3>Machines Room</h3>
-        <p>17 selectorized machines</p>
-      </div>
-    </div>
-    <div class="room-card" onclick="selectRoom('weights')">
-      <div class="room-icon">🏋️</div>
-      <div class="room-info">
-        <h3>Weight Room</h3>
-        <p>8 machines &amp; free weights</p>
-      </div>
-    </div>
-    <div class="room-card" onclick="selectRoom('aerobic')">
-      <div class="room-icon">🚴</div>
-      <div class="room-info">
-        <h3>Aerobic Room</h3>
-        <p>6 cardio machines</p>
-      </div>
-    </div>
-  </div>
+  <div id="room-cards-container" class="room-grid"></div>
 </div>
 
 <!-- ══════════════════════════════════════
@@ -529,7 +453,6 @@
         <input type="date" id="log-date">
       </div>
     </div>
-
     <div class="form-row" style="margin-bottom:12px">
       <div class="form-group">
         <label>Measure</label>
@@ -539,8 +462,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Weight & Reps sets table -->
     <div id="weight-fields" class="sets-table">
       <div class="sets-header">
         <span>#</span><span>Weight (lbs)</span><span>Reps</span><span></span>
@@ -548,8 +469,6 @@
       <div id="weight-rows"></div>
       <button class="btn-add-set" onclick="addSetRow('weight')">+ Add Set</button>
     </div>
-
-    <!-- Duration sets table -->
     <div id="time-fields" class="sets-table" style="display:none">
       <div class="sets-header">
         <span>#</span><span>Duration (min)</span><span>Level</span><span></span>
@@ -557,12 +476,10 @@
       <div id="time-rows"></div>
       <button class="btn-add-set" onclick="addSetRow('time')">+ Add Set</button>
     </div>
-
     <div class="form-group" style="margin-bottom:14px">
       <label>Notes (optional)</label>
       <textarea id="log-notes" placeholder="How did it feel? Any adjustments?"></textarea>
     </div>
-
     <button class="btn-log" id="btn-log" onclick="logSession()">
       <span>💾</span> Save Session
     </button>
@@ -579,15 +496,106 @@
     <input type="password" id="token-input" placeholder="github_pat_...">
     <button class="btn-save-settings" onclick="saveToken()">Save Token</button>
     <p class="settings-note">
-      Your token is stored only in this browser. It's never sent anywhere except to api.github.com to save your workout log.<br><br>
-      To create one: GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens → New token → select <em>workout-coach</em> repo → Contents: Read &amp; Write.
+      Your token is stored only in this browser. It's never sent anywhere except to api.github.com.<br><br>
+      To create one: GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens → New token → select both repos → Contents: Read &amp; Write.
     </p>
   </div>
   <div class="settings-section">
+    <h3>Equipment</h3>
+    <button class="btn-manage-equip" onclick="showManageEquipment()">⚙ Manage Equipment</button>
+    <p class="settings-note" style="margin-top:10px">Add, edit, or remove gyms, rooms, and machines.</p>
+  </div>
+  <div class="settings-section">
     <h3>About</h3>
-    <p class="settings-note">Workout Coach stores all data in your GitHub repo at <strong>jaschro/workout-coach</strong>. Your workout history is always in <code>workout-log.json</code> in that repo.</p>
+    <p class="settings-note">Workout Coach stores all data in your private GitHub repo <strong>jaschro/workout-coach-private-data</strong>. Equipment list is in <code>equipment.json</code>. Workout history is in <code>workout-log.json</code>.</p>
   </div>
 </div>
+
+<!-- ══════════════════════════════════════
+     MANAGE EQUIPMENT
+══════════════════════════════════════ -->
+<div class="screen" id="screen-manage-equip">
+  <div id="equip-list"></div>
+  <button class="btn-add-gym" onclick="openAddGymModal()">+ Add Gym</button>
+</div>
+
+<!-- ══════════════════════════════════════
+     MACHINE MODAL (bottom sheet)
+══════════════════════════════════════ -->
+<div id="machine-modal" class="modal-overlay" style="display:none" onclick="closeMachineModal(event)">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h2 id="modal-title">Edit Machine</h2>
+      <button class="modal-close" onclick="closeMachineModal()">✕</button>
+    </div>
+    <div class="modal-photo-wrap">
+      <img id="modal-photo" src="" alt="">
+      <button class="btn-photo" onclick="triggerPhotoCapture()">📷 Change Photo</button>
+    </div>
+    <div class="modal-form-group">
+      <label>Machine Name</label>
+      <input type="text" id="modal-name" placeholder="e.g. Leg Press">
+    </div>
+    <div class="modal-form-group">
+      <label>Muscles Worked</label>
+      <input type="text" id="modal-muscles" placeholder="e.g. Quadriceps, glutes">
+    </div>
+    <div id="modal-location" style="display:none">
+      <div class="modal-form-group">
+        <label>Gym</label>
+        <select id="modal-gym-sel" onchange="populateRoomSel()"></select>
+      </div>
+      <div class="modal-form-group">
+        <label>Room</label>
+        <select id="modal-room-sel"></select>
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-secondary" onclick="closeMachineModal()">Cancel</button>
+      <button class="btn-log" id="modal-save-btn" onclick="saveMachineFromModal()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     GYM / ROOM ADD MODAL
+══════════════════════════════════════ -->
+<div id="gym-room-modal" class="modal-overlay" style="display:none" onclick="closeGymRoomModal(event)">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h2 id="gr-modal-title">Add Gym</h2>
+      <button class="modal-close" onclick="closeGymRoomModal()">✕</button>
+    </div>
+    <div class="modal-form-group">
+      <label id="gr-name-label">Gym Name</label>
+      <input type="text" id="gr-name" placeholder="e.g. Beach Gym">
+    </div>
+    <div id="gr-gym-extra" style="display:none">
+      <div class="modal-form-group">
+        <label>Icon (emoji)</label>
+        <input type="text" id="gr-icon" placeholder="🏋️" maxlength="4">
+      </div>
+      <div class="modal-form-group">
+        <label>Description (e.g. "Indoor")</label>
+        <input type="text" id="gr-subtitle" placeholder="e.g. Indoor, Outdoor">
+      </div>
+    </div>
+    <div id="gr-room-extra" style="display:none">
+      <div class="modal-form-group">
+        <label>Icon (emoji, optional)</label>
+        <input type="text" id="gr-room-icon" placeholder="🏋️" maxlength="4">
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-secondary" onclick="closeGymRoomModal()">Cancel</button>
+      <button class="btn-log" onclick="saveGymOrRoom()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden file input for camera/photo library -->
+<input type="file" id="photo-input" accept="image/*" capture="environment"
+       style="display:none" onchange="handlePhotoSelected(event)">
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
@@ -596,103 +604,109 @@
 // ═══════════════════════════════════════════════════════
 // CONFIG
 // ═══════════════════════════════════════════════════════
-const REPO_OWNER = 'jaschro';
-const CODE_REPO  = 'workout-coach';                  // public — app + images
-const DATA_REPO  = 'workout-coach-private-data';     // private — workout log
-const LOG_PATH   = 'workout-log.json';
-const IMG_BASE   = `https://raw.githubusercontent.com/${REPO_OWNER}/${CODE_REPO}/main/images`;
+const REPO_OWNER     = 'jaschro';
+const CODE_REPO      = 'workout-coach';
+const DATA_REPO      = 'workout-coach-private-data';
+const LOG_PATH       = 'workout-log.json';
+const CSV_PATH       = 'workout-log.csv';
+const EQUIPMENT_PATH = 'equipment.json';
+const IMG_BASE       = `https://raw.githubusercontent.com/${REPO_OWNER}/${CODE_REPO}/main/images`;
 
 // ═══════════════════════════════════════════════════════
-// EQUIPMENT DATA
+// FALLBACK EQUIPMENT (used on first load / no token)
 // ═══════════════════════════════════════════════════════
-const GYMS = {
-  fifth: {
-    name: '5th Street Gym',
-    rooms: { default: '5th Street Gym' },
-    machines: [
-      { id: 'f01', name: 'Combined Exerciser',       muscles: 'Upper body — pull-ups, leg raises, dips',                                img: '5th-street/MB.7.61 Combined Exerciser.jpg' },
-      { id: 'f02', name: 'Decline Bench & Hyperext', muscles: 'Abdominals, back muscles, and glutes using bodyweight',                  img: '5th-street/MB.7.62.Decline Bench.jpg' },
-      { id: 'f03', name: 'Situp Bench (Incline)',    muscles: 'Abdominals, back muscles, and glutes using bodyweight',                  img: '5th-street/Incline Bench.Situps.jpg' },
-      { id: 'f04', name: 'Shoulder Press',           muscles: 'Middle deltoids, upper trapezius, and biceps',                          img: '5th-street/MB.7.63.Shoulder Press.jpg' },
-      { id: 'f05', name: 'Bench Press',              muscles: 'Chest, triceps, and front deltoids — full range of motion',             img: '5th-street/MB.7.64.Bench Press..jpg' },
-      { id: 'f06', name: 'Squat',                    muscles: 'Quadriceps femoris, gluteus medius, and gluteus maximus',               img: '5th-street/MB.7.65.Squat.jpg' },
-      { id: 'f07', name: 'Combo Lift',               muscles: 'Glutes, quads, adductors/abductors, traps, lats, posterior deltoids',   img: '5th-street/MB.7.62.ComboLift.jpg' },
-      { id: 'f08', name: 'Seated Tricep Dips',       muscles: 'Deltoid and tricep muscles with variable load',                         img: '5th-street/MB.7.67.Seated Tricep Dips..jpg' },
-      { id: 'f09', name: 'Horizontal Leg Press',     muscles: 'Quadriceps femoris, gluteus medius, and gluteus maximus',               img: '5th-street/MB.7.74.Leg Press.jpg' },
-      { id: 'f10', name: 'Incline Chest Press',      muscles: 'Chest and shoulder muscles with variable load',                         img: '5th-street/MB.7.75.Incline Chest Press.jpg' },
-    ]
-  },
-  portofino: {
-    name: 'Portofino Gym',
-    rooms: {
-      machines: 'Machines Room',
-      weights:  'Weight Room',
-      aerobic:  'Aerobic Room',
-    },
-    machinesByRoom: {
-      machines: [
-        { id: 'pm01', name: 'Adjustable Decline Abdominal Bench', muscles: 'Rectus abdominis (six-pack) and obliques',                          img: 'portofino/p-machines/1. Adjustable Decline Abdominal Bench.jpg' },
-        { id: 'pm02', name: 'Seated Row Machine',                  muscles: 'Lats, rhomboids, middle trapezius, rear deltoids, biceps',          img: 'portofino/p-machines/2. Seated Row Machine.jpg' },
-        { id: 'pm03', name: 'Seated Chest Press Machine',          muscles: 'Pectoralis major, anterior deltoids, and triceps',                  img: 'portofino/p-machines/3. Seated Chest Press Machine.jpg' },
-        { id: 'pm04', name: 'Pec Fly / Rear Delt Combo',          muscles: 'Fly: chest · Reverse fly: rear delts, rhomboids, mid trapezius',    img: 'portofino/p-machines/4. Pec Fly _ Rear Delt Combo.jpg' },
-        { id: 'pm05', name: 'Seated Leg Extension Machine',        muscles: 'Quadriceps (isolated)',                                             img: 'portofino/p-machines/5.  Seated Leg Extension Machine.jpg' },
-        { id: 'pm06', name: 'Seated Leg Curl Machine',             muscles: 'Hamstrings (isolated)',                                             img: 'portofino/p-machines/6.  Seated Leg Curl Machine.jpg' },
-        { id: 'pm07', name: 'Back Extension Bench',                muscles: 'Lower back, glutes, and hamstrings',                               img: 'portofino/p-machines/7. Back Extension Bench.jpg' },
-        { id: 'pm08', name: 'Seated Shoulder Press',               muscles: 'Deltoids and triceps',                                             img: 'portofino/p-machines/8. Seated Shoulder Press.jpg' },
-        { id: 'pm09', name: 'Functional Trainer (Cable Crossover)',muscles: 'Chest, back, arms, and core — highly versatile',                   img: 'portofino/p-machines/9. Functional Trainer (Cable Crossover).jpg' },
-        { id: 'pm10', name: 'Seated Biceps Curl Machine',          muscles: 'Biceps brachii',                                                   img: 'portofino/p-machines/10. Seated Biceps Curl Machine.jpg' },
-        { id: 'pm11', name: 'Hip Abduction Machine',               muscles: 'Outer glutes (gluteus medius) and outer thighs',                   img: 'portofino/p-machines/11. Hip Abduction Machine.jpg' },
-        { id: 'pm12', name: 'Hip Adduction Machine',               muscles: 'Inner thigh muscles (adductors)',                                  img: 'portofino/p-machines/12. Hip Adduction Machine.jpg' },
-        { id: 'pm13', name: 'Seated Abdominal Crunch Machine',     muscles: 'Upper and lower rectus abdominis (six-pack)',                      img: 'portofino/p-machines/13. Seated Abdominal Crunch Machine.jpg' },
-        { id: 'pm14', name: 'Glute Isolator',                      muscles: 'Glutes and upper hamstrings',                                     img: 'portofino/p-machines/14. Glute Isolator.jpg' },
-        { id: 'pm15', name: 'Power Plate Vibration Platform',      muscles: 'Core stability, balance, flexibility, and circulation',            img: 'portofino/p-machines/15. Power Plate Pro-Series Vibration Platform.jpg' },
-        { id: 'pm16', name: 'Pilates Reformer & Tower',            muscles: 'Deep core strength, flexibility, and alignment',                   img: 'portofino/p-machines/16. Pilates Reformer and Tower Machine.jpg' },
-        { id: 'pm17', name: 'Speed Bag',                           muscles: 'Hand-eye coordination, shoulder endurance, and reflexes',          img: 'portofino/p-machines/17. Speed Bag.jpg' },
-      ],
-      weights: [
-        { id: 'pw01', name: 'Assisted Pullup & Dip Machine',       muscles: 'Upper body — pull-ups, leg raises, dips',                         img: 'portofino/p-weight-room/1. Assisted Pullup and Dip Machine.jpg' },
-        { id: 'pw02', name: 'Lat Pulldown Machine',                 muscles: 'Latissimus dorsi, rhomboids, biceps',                             img: 'portofino/p-weight-room/2. Lat Pulldown Machine.jpg' },
-        { id: 'pw03', name: 'Seated Cable Row Machine',             muscles: 'Upper back — lats, rhomboids, trapezius, rear deltoids, biceps',  img: 'portofino/p-weight-room/3. Seated Cable Row Machine.jpg' },
-        { id: 'pw04', name: 'Seated Preacher Curl Bench',           muscles: 'Biceps (plate-loaded, elbows locked)',                            img: 'portofino/p-weight-room/4. Seated Preacher Curl Bench.jpg' },
-        { id: 'pw05', name: 'Adjustable Incline/Decline Benches',   muscles: 'Free weight support — chest presses, shoulder presses, rows',     img: 'portofino/p-weight-room/5. Adjustable Incline_Decline Benches.jpg' },
-        { id: 'pw06', name: 'Seated Leg Press Machine',             muscles: 'Quadriceps, glutes, and hamstrings',                              img: 'portofino/p-weight-room/6. Seated Leg Press Machine.jpg' },
-        { id: 'pw07', name: 'Bench Press',                          muscles: 'Chest, triceps, and front deltoids',                              img: 'portofino/p-weight-room/7. Bench Press.jpg' },
-        { id: 'pw08', name: 'Plate-Loaded Seated Calf Raise',       muscles: 'Soleus (lower calf) — isolated ankle extension',                 img: 'portofino/p-weight-room/8. Plate-Loaded Seated Calf Raise Machine.jpg' },
-      ],
-      aerobic: [
-        { id: 'pa01', name: 'Stair Climber',                        muscles: 'Glutes, quadriceps, hamstrings, and calves — high-intensity cardio', img: 'portofino/p-aerobic/1. Stair Climber.jpg' },
-        { id: 'pa02', name: 'Recumbent Stationary Bike',            muscles: 'Quadriceps, hamstrings, glutes, and calves — low-impact cardio',  img: 'portofino/p-aerobic/2. Precor Recumbent Stationary Bike.jpg' },
-        { id: 'pa03', name: 'Hydrow Indoor Rowing Machine',         muscles: '60% legs · 20% core · 20% arms & back — full body cardio',        img: 'portofino/p-aerobic/3. Hydrow Indoor Rowing Machine.jpg' },
-        { id: 'pa04', name: 'Peloton',                              muscles: 'Cardiovascular conditioning — quadriceps, hamstrings, calves',    img: 'portofino/p-aerobic/4. Peloton.jpg' },
-        { id: 'pa05', name: 'Treadmill',                            muscles: 'Cardiovascular conditioning — lower body endurance',              img: 'portofino/p-aerobic/5. Treadmill.jpg' },
-        { id: 'pa06', name: 'Elliptical Cross Trainer',             muscles: 'Low-impact full-body cardiovascular workout',                     img: 'portofino/p-aerobic/6. Elliptical Cross Trainer.jpg' },
+const FALLBACK_EQUIPMENT = [
+  {
+    id:'fifth', name:'5th Street Gym', icon:'🌤', subtitle:'Outdoor',
+    rooms:[{
+      id:'main', name:'5th Street Gym', icon:'🌤',
+      machines:[
+        {id:'f01',name:'Combined Exerciser',       muscles:'Upper body — pull-ups, leg raises, dips',                              img:'5th-street/MB.7.61 Combined Exerciser.jpg'},
+        {id:'f02',name:'Decline Bench & Hyperext', muscles:'Abdominals, back muscles, and glutes using bodyweight',                img:'5th-street/MB.7.62.Decline Bench.jpg'},
+        {id:'f03',name:'Situp Bench (Incline)',    muscles:'Abdominals, back muscles, and glutes using bodyweight',                img:'5th-street/Incline Bench.Situps.jpg'},
+        {id:'f04',name:'Shoulder Press',           muscles:'Middle deltoids, upper trapezius, and biceps',                        img:'5th-street/MB.7.63.Shoulder Press.jpg'},
+        {id:'f05',name:'Bench Press',              muscles:'Chest, triceps, and front deltoids — full range of motion',           img:'5th-street/MB.7.64.Bench Press..jpg'},
+        {id:'f06',name:'Squat',                    muscles:'Quadriceps femoris, gluteus medius, and gluteus maximus',             img:'5th-street/MB.7.65.Squat.jpg'},
+        {id:'f07',name:'Combo Lift',               muscles:'Glutes, quads, adductors/abductors, traps, lats, posterior deltoids', img:'5th-street/MB.7.62.ComboLift.jpg'},
+        {id:'f08',name:'Seated Tricep Dips',       muscles:'Deltoid and tricep muscles with variable load',                       img:'5th-street/MB.7.67.Seated Tricep Dips..jpg'},
+        {id:'f09',name:'Horizontal Leg Press',     muscles:'Quadriceps femoris, gluteus medius, and gluteus maximus',             img:'5th-street/MB.7.74.Leg Press.jpg'},
+        {id:'f10',name:'Incline Chest Press',      muscles:'Chest and shoulder muscles with variable load',                       img:'5th-street/MB.7.75.Incline Chest Press.jpg'},
       ]
-    }
+    }]
+  },
+  {
+    id:'portofino', name:'Portofino Gym', icon:'🏋️', subtitle:'Indoor',
+    rooms:[
+      {
+        id:'machines', name:'Machines Room', icon:'⚙️',
+        machines:[
+          {id:'pm01',name:'Adjustable Decline Abdominal Bench',muscles:'Rectus abdominis (six-pack) and obliques',                       img:'portofino/p-machines/1. Adjustable Decline Abdominal Bench.jpg'},
+          {id:'pm02',name:'Seated Row Machine',                 muscles:'Lats, rhomboids, middle trapezius, rear deltoids, biceps',       img:'portofino/p-machines/2. Seated Row Machine.jpg'},
+          {id:'pm03',name:'Seated Chest Press Machine',         muscles:'Pectoralis major, anterior deltoids, and triceps',               img:'portofino/p-machines/3. Seated Chest Press Machine.jpg'},
+          {id:'pm04',name:'Pec Fly / Rear Delt Combo',         muscles:'Fly: chest · Reverse fly: rear delts, rhomboids, mid trapezius', img:'portofino/p-machines/4. Pec Fly _ Rear Delt Combo.jpg'},
+          {id:'pm05',name:'Seated Leg Extension Machine',       muscles:'Quadriceps (isolated)',                                         img:'portofino/p-machines/5.  Seated Leg Extension Machine.jpg'},
+          {id:'pm06',name:'Seated Leg Curl Machine',            muscles:'Hamstrings (isolated)',                                         img:'portofino/p-machines/6.  Seated Leg Curl Machine.jpg'},
+          {id:'pm07',name:'Back Extension Bench',               muscles:'Lower back, glutes, and hamstrings',                            img:'portofino/p-machines/7. Back Extension Bench.jpg'},
+          {id:'pm08',name:'Seated Shoulder Press',              muscles:'Deltoids and triceps',                                          img:'portofino/p-machines/8. Seated Shoulder Press.jpg'},
+          {id:'pm09',name:'Functional Trainer (Cable Crossover)',muscles:'Chest, back, arms, and core — highly versatile',               img:'portofino/p-machines/9. Functional Trainer (Cable Crossover).jpg'},
+          {id:'pm10',name:'Seated Biceps Curl Machine',         muscles:'Biceps brachii',                                               img:'portofino/p-machines/10. Seated Biceps Curl Machine.jpg'},
+          {id:'pm11',name:'Hip Abduction Machine',              muscles:'Outer glutes (gluteus medius) and outer thighs',               img:'portofino/p-machines/11. Hip Abduction Machine.jpg'},
+          {id:'pm12',name:'Hip Adduction Machine',              muscles:'Inner thigh muscles (adductors)',                              img:'portofino/p-machines/12. Hip Adduction Machine.jpg'},
+          {id:'pm13',name:'Seated Abdominal Crunch Machine',    muscles:'Upper and lower rectus abdominis (six-pack)',                  img:'portofino/p-machines/13. Seated Abdominal Crunch Machine.jpg'},
+          {id:'pm14',name:'Glute Isolator',                     muscles:'Glutes and upper hamstrings',                                 img:'portofino/p-machines/14. Glute Isolator.jpg'},
+          {id:'pm15',name:'Power Plate Vibration Platform',     muscles:'Core stability, balance, flexibility, and circulation',       img:'portofino/p-machines/15. Power Plate Pro-Series Vibration Platform.jpg'},
+          {id:'pm16',name:'Pilates Reformer & Tower',           muscles:'Deep core strength, flexibility, and alignment',              img:'portofino/p-machines/16. Pilates Reformer and Tower Machine.jpg'},
+          {id:'pm17',name:'Speed Bag',                          muscles:'Hand-eye coordination, shoulder endurance, and reflexes',     img:'portofino/p-machines/17. Speed Bag.jpg'},
+        ]
+      },
+      {
+        id:'weights', name:'Weight Room', icon:'🏋️',
+        machines:[
+          {id:'pw01',name:'Assisted Pullup & Dip Machine',     muscles:'Upper body — pull-ups, leg raises, dips',                        img:'portofino/p-weight-room/1. Assisted Pullup and Dip Machine.jpg'},
+          {id:'pw02',name:'Lat Pulldown Machine',               muscles:'Latissimus dorsi, rhomboids, biceps',                            img:'portofino/p-weight-room/2. Lat Pulldown Machine.jpg'},
+          {id:'pw03',name:'Seated Cable Row Machine',           muscles:'Upper back — lats, rhomboids, trapezius, rear deltoids, biceps', img:'portofino/p-weight-room/3. Seated Cable Row Machine.jpg'},
+          {id:'pw04',name:'Seated Preacher Curl Bench',         muscles:'Biceps (plate-loaded, elbows locked)',                           img:'portofino/p-weight-room/4. Seated Preacher Curl Bench.jpg'},
+          {id:'pw05',name:'Adjustable Incline/Decline Benches', muscles:'Free weight support — chest presses, shoulder presses, rows',   img:'portofino/p-weight-room/5. Adjustable Incline_Decline Benches.jpg'},
+          {id:'pw06',name:'Seated Leg Press Machine',           muscles:'Quadriceps, glutes, and hamstrings',                            img:'portofino/p-weight-room/6. Seated Leg Press Machine.jpg'},
+          {id:'pw07',name:'Bench Press',                        muscles:'Chest, triceps, and front deltoids',                            img:'portofino/p-weight-room/7. Bench Press.jpg'},
+          {id:'pw08',name:'Plate-Loaded Seated Calf Raise',     muscles:'Soleus (lower calf) — isolated ankle extension',               img:'portofino/p-weight-room/8. Plate-Loaded Seated Calf Raise Machine.jpg'},
+        ]
+      },
+      {
+        id:'aerobic', name:'Aerobic Room', icon:'🚴',
+        machines:[
+          {id:'pa01',name:'Stair Climber',               muscles:'Glutes, quadriceps, hamstrings, and calves — high-intensity cardio',  img:'portofino/p-aerobic/1. Stair Climber.jpg'},
+          {id:'pa02',name:'Recumbent Stationary Bike',   muscles:'Quadriceps, hamstrings, glutes, and calves — low-impact cardio',      img:'portofino/p-aerobic/2. Precor Recumbent Stationary Bike.jpg'},
+          {id:'pa03',name:'Hydrow Indoor Rowing Machine',muscles:'60% legs · 20% core · 20% arms & back — full body cardio',            img:'portofino/p-aerobic/3. Hydrow Indoor Rowing Machine.jpg'},
+          {id:'pa04',name:'Peloton',                     muscles:'Cardiovascular conditioning — quadriceps, hamstrings, calves',        img:'portofino/p-aerobic/4. Peloton.jpg'},
+          {id:'pa05',name:'Treadmill',                   muscles:'Cardiovascular conditioning — lower body endurance',                  img:'portofino/p-aerobic/5. Treadmill.jpg'},
+          {id:'pa06',name:'Elliptical Cross Trainer',    muscles:'Low-impact full-body cardiovascular workout',                         img:'portofino/p-aerobic/6. Elliptical Cross Trainer.jpg'},
+        ]
+      }
+    ]
   }
-};
+];
 
 // ═══════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════
 let state = {
-  gym: null,        // 'fifth' | 'portofino'
-  room: null,       // 'machines' | 'weights' | 'aerobic' | null
-  machine: null,    // machine object
+  gym: null, room: null, machine: null,
   logType: 'weight',
-  log: [],          // flat rows loaded from GitHub
-  logSha: null,     // GitHub file SHA for updates
-  csvSha: null,     // GitHub CSV file SHA for updates
-  editingDate: null, // date string when editing an existing session
+  log: [], logSha: null, csvSha: null,
+  editingDate: null,
+  equipment: FALLBACK_EQUIPMENT,
+  equipmentSha: null,
 };
 
+let modalState = { mode: null, machineId: null, gymId: null, roomId: null, newPhotoBase64: null };
+let gymRoomState = { mode: null, gymId: null };
 let navStack = [];
 
 // ═══════════════════════════════════════════════════════
 // GITHUB API
 // ═══════════════════════════════════════════════════════
-function getToken() {
-  return localStorage.getItem('gh_token') || '';
-}
+function getToken() { return localStorage.getItem('gh_token') || ''; }
 
 async function ghGet(path, token, repo=DATA_REPO) {
   const res = await fetch(
@@ -719,63 +733,130 @@ async function ghPut(path, content, sha, message, token, repo=DATA_REPO) {
   return res.json();
 }
 
+// ═══════════════════════════════════════════════════════
+// EQUIPMENT
+// ═══════════════════════════════════════════════════════
+async function fetchEquipment() {
+  const token = getToken();
+  if (!token) { renderHome(); return; }
+  try {
+    const data = await ghGet(EQUIPMENT_PATH, token);
+    if (data) {
+      state.equipmentSha = data.sha;
+      state.equipment = JSON.parse(atob(data.content.replace(/\n/g,'')));
+    } else {
+      // First run: bootstrap equipment.json from fallback
+      state.equipment = FALLBACK_EQUIPMENT;
+      await saveEquipment('Bootstrap equipment data');
+    }
+  } catch(e) {
+    console.error('fetchEquipment:', e);
+  }
+  renderHome();
+}
+
+async function saveEquipment(message='Update equipment') {
+  const token = getToken();
+  if (!token) { showToast('No token — go to Settings first', 'error'); return false; }
+  try {
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(state.equipment, null, 2))));
+    const result = await ghPut(EQUIPMENT_PATH, content, state.equipmentSha, message, token);
+    state.equipmentSha = result.content.sha;
+    return true;
+  } catch(e) {
+    showToast('Save failed: ' + e.message, 'error'); return false;
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// PHOTO
+// ═══════════════════════════════════════════════════════
+async function resizeImage(file, maxPx=800) {
+  return new Promise(resolve => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      let w = img.width, h = img.height;
+      if (w > h) { if (w > maxPx) { h = Math.round(h * maxPx / w); w = maxPx; } }
+      else       { if (h > maxPx) { w = Math.round(w * maxPx / h); h = maxPx; } }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      URL.revokeObjectURL(url);
+      resolve(canvas.toDataURL('image/jpeg', 0.82));
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(null); };
+    img.src = url;
+  });
+}
+
+async function uploadPhoto(base64DataUrl, path) {
+  const token = getToken();
+  if (!token) throw new Error('No token');
+  const b64 = base64DataUrl.split(',')[1];
+  const existing = await ghGet(path, token, CODE_REPO);
+  await ghPut(path, b64, existing ? existing.sha : null, `Add photo: ${path}`, token, CODE_REPO);
+}
+
+function triggerPhotoCapture() {
+  document.getElementById('photo-input').click();
+}
+
+async function handlePhotoSelected(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  showToast('Resizing photo…');
+  const resized = await resizeImage(file);
+  if (!resized) { showToast('Could not process photo', 'error'); return; }
+  modalState.newPhotoBase64 = resized;
+  const photoEl = document.getElementById('modal-photo');
+  photoEl.src = resized;
+  photoEl.style.display = 'block';
+  event.target.value = '';
+  showToast('Photo ready — tap Save to upload', 'success');
+}
+
+// ═══════════════════════════════════════════════════════
+// CSV
+// ═══════════════════════════════════════════════════════
+const CSV_HEADERS = ['date','gym','room','machine','machineId','set','weight','reps','duration','level','notes'];
+function escapeCSV(v) {
+  if (v===null||v===undefined) return '';
+  const s = String(v);
+  return (s.includes(',')||s.includes('"')||s.includes('\n')) ? `"${s.replace(/"/g,'""')}"` : s;
+}
+function toCSV(rows) {
+  return [CSV_HEADERS.join(','), ...rows.map(r => CSV_HEADERS.map(h => escapeCSV(r[h])).join(','))].join('\n');
+}
+
+// ═══════════════════════════════════════════════════════
+// LOG
+// ═══════════════════════════════════════════════════════
 async function fetchLog() {
   const token = getToken();
   if (!token) return;
   try {
-    const [jsonData, csvData] = await Promise.all([
-      ghGet(LOG_PATH, token),
-      ghGet(CSV_PATH, token),
-    ]);
+    const [jsonData, csvData] = await Promise.all([ghGet(LOG_PATH, token), ghGet(CSV_PATH, token)]);
     if (jsonData) {
       state.logSha = jsonData.sha;
       state.log = JSON.parse(atob(jsonData.content.replace(/\n/g,'')));
-    } else {
-      state.log = []; state.logSha = null;
-    }
+    } else { state.log = []; state.logSha = null; }
     state.csvSha = csvData ? csvData.sha : null;
-  } catch(e) {
-    console.error('fetchLog:', e);
-  }
-}
-
-// ── CSV helpers ───────────────────────────────────────────────────────────────
-const CSV_PATH = 'workout-log.csv';
-const CSV_HEADERS = ['date','gym','room','machine','machineId','set','weight','reps','duration','level','notes'];
-
-function escapeCSV(v) {
-  if (v === null || v === undefined) return '';
-  const s = String(v);
-  return (s.includes(',') || s.includes('"') || s.includes('\n'))
-    ? `"${s.replace(/"/g,'""')}"` : s;
-}
-
-function toCSV(rows) {
-  return [
-    CSV_HEADERS.join(','),
-    ...rows.map(r => CSV_HEADERS.map(h => escapeCSV(r[h])).join(','))
-  ].join('\n');
+  } catch(e) { console.error('fetchLog:', e); }
 }
 
 async function saveLog() {
   const token = getToken();
   if (!token) { showToast('No token — go to Settings first', 'error'); return false; }
   try {
-    // Save JSON
     const jsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(state.log, null, 2))));
     const jsonResult  = await ghPut(LOG_PATH, jsonContent, state.logSha, 'Log workout session', token);
     state.logSha = jsonResult.content.sha;
-
-    // Save CSV
     const csvContent = btoa(unescape(encodeURIComponent(toCSV(state.log))));
     const csvResult  = await ghPut(CSV_PATH, csvContent, state.csvSha, 'Update workout-log.csv', token);
     state.csvSha = csvResult.content.sha;
-
     return true;
-  } catch(e) {
-    showToast('Save failed: ' + e.message, 'error');
-    return false;
-  }
+  } catch(e) { showToast('Save failed: ' + e.message, 'error'); return false; }
 }
 
 // ═══════════════════════════════════════════════════════
@@ -786,59 +867,88 @@ function showScreen(id, title, showBack=true) {
   document.getElementById('screen-' + id).classList.add('active');
   document.getElementById('header-title').textContent = title;
   document.getElementById('back-btn').style.display = showBack ? 'flex' : 'none';
+  window.scrollTo(0, 0);
 }
 
-function goBack() {
-  if (!navStack.length) return;
-  const prev = navStack.pop();
-  prev();
-}
-
+function goBack() { if (navStack.length) navStack.pop()(); }
 function push(fn) { navStack.push(fn); }
 
-// ═══════════════════════════════════════════════════════
-// GYM → ROOM → MACHINE
-// ═══════════════════════════════════════════════════════
-function selectGym(gymKey) {
-  state.gym = gymKey;
-  const gym = GYMS[gymKey];
+function showHome() {
+  navStack = [];
+  showScreen('home', 'Workout Coach', false);
+  document.getElementById('setup-banner-home').style.display = getToken() ? 'none' : 'block';
+  renderHome();
+}
 
-  if (gymKey === 'fifth') {
-    push(() => showHome());
-    renderMachineList(gym.machines, gym.name);
+// ═══════════════════════════════════════════════════════
+// GYM / ROOM / MACHINE RENDERING
+// ═══════════════════════════════════════════════════════
+function renderHome() {
+  const container = document.getElementById('gym-cards-container');
+  if (!container) return;
+  container.innerHTML = state.equipment.map(gym => {
+    const total = gym.rooms.reduce((s, r) => s + r.machines.length, 0);
+    const sub = gym.rooms.length === 1
+      ? `${gym.subtitle} · ${total} machines`
+      : `${gym.subtitle} · ${gym.rooms.length} rooms · ${total} machines`;
+    return `<div class="gym-card" onclick="selectGym('${gym.id}')">
+      <div class="gym-icon">${gym.icon||'🏋️'}</div>
+      <div class="gym-info"><h2>${gym.name}</h2><p>${sub}</p></div>
+    </div>`;
+  }).join('');
+}
+
+function selectGym(gymId) {
+  state.gym = gymId;
+  const gym = state.equipment.find(g => g.id === gymId);
+  if (!gym) return;
+  push(() => showHome());
+  if (gym.rooms.length === 1) {
+    state.room = gym.rooms[0].id;
+    renderMachineList(gym.rooms[0].machines, gym.name);
     showScreen('machines', gym.name);
   } else {
-    push(() => showHome());
-    showScreen('rooms', 'Portofino Gym');
+    renderRoomCards(gym);
+    showScreen('rooms', gym.name);
   }
 }
 
-function selectRoom(roomKey) {
-  state.room = roomKey;
-  const gym = GYMS.portofino;
-  const roomName = gym.rooms[roomKey];
-  const machines = gym.machinesByRoom[roomKey];
-  push(() => { showScreen('rooms','Portofino Gym'); });
-  renderMachineList(machines, roomName);
-  showScreen('machines', roomName);
+function renderRoomCards(gym) {
+  document.getElementById('room-cards-container').innerHTML = gym.rooms.map(room => `
+    <div class="room-card" onclick="selectRoom('${room.id}')">
+      <div class="room-icon">${room.icon||'🏋️'}</div>
+      <div class="room-info">
+        <h3>${room.name}</h3>
+        <p>${room.machines.length} machine${room.machines.length!==1?'s':''}</p>
+      </div>
+    </div>`).join('');
+}
+
+function selectRoom(roomId) {
+  state.room = roomId;
+  const gym  = state.equipment.find(g => g.id === state.gym);
+  const room = gym?.rooms.find(r => r.id === roomId);
+  if (!gym || !room) return;
+  push(() => { renderRoomCards(gym); showScreen('rooms', gym.name); });
+  renderMachineList(room.machines, room.name);
+  showScreen('machines', room.name);
 }
 
 function renderMachineList(machines, title) {
-  const grid = document.getElementById('machine-grid');
-  grid.innerHTML = machines.map(m => {
+  document.getElementById('machine-grid').innerHTML = machines.map(m => {
     const history = getHistory(m.id);
     const last = history[0] || null;
-    const lastText = last ? formatShort(last) : 'No sessions yet';
-    const hasData = !!last;
-    return `
-      <div class="machine-card" onclick="selectMachine('${m.id}')">
-        <img src="${IMG_BASE}/${encodeImagePath(m.img)}" alt="${m.name}" loading="lazy"
-             onerror="this.style.background='#e5e7eb';this.style.minHeight='120px'">
-        <div class="machine-card-body">
-          <h4>${m.name}</h4>
-          <div class="last-log ${hasData?'has-data':''}">${lastText}</div>
-        </div>
-      </div>`;
+    const imgSrc = m.img
+      ? (m.img.startsWith('data:') || m.img.startsWith('http') ? m.img : `${IMG_BASE}/${encodeImagePath(m.img)}`)
+      : '';
+    return `<div class="machine-card" onclick="selectMachine('${m.id}')">
+      <img src="${imgSrc}" alt="${m.name}" loading="lazy"
+           onerror="this.style.background='#e5e7eb';this.style.minHeight='120px'">
+      <div class="machine-card-body">
+        <h4>${m.name}</h4>
+        <div class="last-log ${last?'has-data':''}">${last ? formatShort(last) : 'No sessions yet'}</div>
+      </div>
+    </div>`;
   }).join('');
 }
 
@@ -847,73 +957,67 @@ function selectMachine(machineId) {
   if (!machine) return;
   state.machine = machine;
 
-  document.getElementById('detail-photo').src = `${IMG_BASE}/${encodeImagePath(machine.img)}`;
+  const imgSrc = machine.img
+    ? (machine.img.startsWith('data:') || machine.img.startsWith('http') ? machine.img : `${IMG_BASE}/${encodeImagePath(machine.img)}`)
+    : '';
+  document.getElementById('detail-photo').src = imgSrc;
   document.getElementById('detail-name').textContent = machine.name;
   document.getElementById('detail-muscles').textContent = machine.muscles;
 
-  // History
   const history = getHistory(machineId).slice(0,3);
-  const histEl = document.getElementById('history-list');
-  if (!history.length) {
-    histEl.innerHTML = '<div class="history-empty">No sessions recorded yet — be the first!</div>';
-  } else {
-    histEl.innerHTML = history.map(s => `
-      <div class="history-item" style="flex-direction:column;align-items:flex-start;gap:4px">
-        <div style="display:flex;justify-content:space-between;width:100%;align-items:center">
-          <div class="history-date">${formatDate(s.date)}</div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <div class="history-stats">${formatSummary(s)}</div>
-            <div class="history-actions">
-              <button class="btn-edit"   onclick="editSession('${machineId}','${s.date}')"   title="Edit">✏</button>
-              <button class="btn-delete" onclick="deleteSession('${machineId}','${s.date}')" title="Delete">🗑</button>
-            </div>
+  const histEl  = document.getElementById('history-list');
+  histEl.innerHTML = history.length ? history.map(s => `
+    <div class="history-item" style="flex-direction:column;align-items:flex-start;gap:4px">
+      <div style="display:flex;justify-content:space-between;width:100%;align-items:center">
+        <div class="history-date">${formatDate(s.date)}</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="history-stats">${formatSummary(s)}</div>
+          <div class="history-actions">
+            <button class="btn-edit"   onclick="editSession('${machineId}','${s.date}')"   title="Edit">✏</button>
+            <button class="btn-delete" onclick="deleteSession('${machineId}','${s.date}')" title="Delete">🗑</button>
           </div>
         </div>
-        <div class="history-sets">${formatSetsList(s)}</div>
-      </div>`).join('');
-  }
+      </div>
+      <div class="history-sets">${formatSetsList(s)}</div>
+    </div>`).join('')
+  : '<div class="history-empty">No sessions recorded yet — be the first!</div>';
 
-  // Pre-fill date
-  document.getElementById('log-date').value = todayStr();
+  document.getElementById('log-date').value  = todayStr();
   document.getElementById('log-notes').value = '';
-
-  // Init sets rows (pre-filled from last session if available)
   initSetRows(history[0] || null);
 
-  const prevScreen = state.gym === 'fifth' ? '5th Street Gym' : (GYMS.portofino.rooms[state.room]);
-  push(() => { showScreen('machines', prevScreen); });
+  const gym     = state.equipment.find(g => g.id === state.gym);
+  const room    = gym?.rooms.find(r => r.id === state.room);
+  const prevTitle = gym?.rooms.length === 1 ? gym.name : (room?.name || gym?.name || '');
+  push(() => showScreen('machines', prevTitle));
   showScreen('machine', machine.name);
 }
 
 // ═══════════════════════════════════════════════════════
-// LOGGING
+// SETS / LOGGING
 // ═══════════════════════════════════════════════════════
-// ── Sets table ────────────────────────────────────────────────────────────────
 function setType(type) {
   state.logType = type;
-  document.getElementById('toggle-weight').className = type === 'weight' ? 'active' : '';
-  document.getElementById('toggle-time').className   = type === 'time'   ? 'active' : '';
-  document.getElementById('weight-fields').style.display = type === 'weight' ? '' : 'none';
-  document.getElementById('time-fields').style.display   = type === 'time'   ? '' : 'none';
+  document.getElementById('toggle-weight').className = type==='weight'?'active':'';
+  document.getElementById('toggle-time').className   = type==='time'  ?'active':'';
+  document.getElementById('weight-fields').style.display = type==='weight' ? '' : 'none';
+  document.getElementById('time-fields').style.display   = type==='time'   ? '' : 'none';
 }
 
 function addSetRow(type, vals={}) {
-  const container = document.getElementById(type === 'weight' ? 'weight-rows' : 'time-rows');
+  const container = document.getElementById(type==='weight' ? 'weight-rows' : 'time-rows');
   const num = container.children.length + 1;
   const row = document.createElement('div');
   row.className = 'set-row';
-
-  if (type === 'weight') {
-    row.innerHTML = `
-      <div class="set-num">${num}</div>
-      <input type="number" inputmode="decimal" step="5" min="0" placeholder="lbs" value="${vals.weight ?? ''}">
-      <input type="number" inputmode="numeric" min="1" placeholder="reps" value="${vals.reps ?? ''}">
+  if (type==='weight') {
+    row.innerHTML = `<div class="set-num">${num}</div>
+      <input type="number" inputmode="decimal" step="5" min="0" placeholder="lbs" value="${vals.weight??''}">
+      <input type="number" inputmode="numeric" min="1" placeholder="reps" value="${vals.reps??''}">
       <button class="set-remove" onclick="removeSetRow(this,'weight')" title="Remove">×</button>`;
   } else {
-    row.innerHTML = `
-      <div class="set-num">${num}</div>
-      <input type="number" inputmode="numeric" min="1" placeholder="min" value="${vals.duration ?? ''}">
-      <input type="number" inputmode="numeric" min="1" placeholder="lvl" value="${vals.level ?? ''}">
+    row.innerHTML = `<div class="set-num">${num}</div>
+      <input type="number" inputmode="numeric" min="1" placeholder="min" value="${vals.duration??''}">
+      <input type="number" inputmode="numeric" min="1" placeholder="lvl" value="${vals.level??''}">
       <button class="set-remove" onclick="removeSetRow(this,'time')" title="Remove">×</button>`;
   }
   container.appendChild(row);
@@ -921,154 +1025,106 @@ function addSetRow(type, vals={}) {
 
 function removeSetRow(btn, type) {
   btn.closest('.set-row').remove();
-  // Renumber remaining rows
-  const container = document.getElementById(type === 'weight' ? 'weight-rows' : 'time-rows');
-  Array.from(container.children).forEach((row, i) => {
-    row.querySelector('.set-num').textContent = i + 1;
-  });
+  const container = document.getElementById(type==='weight' ? 'weight-rows' : 'time-rows');
+  Array.from(container.children).forEach((row,i) => { row.querySelector('.set-num').textContent = i+1; });
 }
 
 function getSetRows(type) {
-  const container = document.getElementById(type === 'weight' ? 'weight-rows' : 'time-rows');
+  const container = document.getElementById(type==='weight' ? 'weight-rows' : 'time-rows');
   return Array.from(container.children).map(row => {
     const inputs = row.querySelectorAll('input');
-    if (type === 'weight') {
-      return { weight: parseFloat(inputs[0].value)||null, reps: parseInt(inputs[1].value)||null };
-    } else {
-      return { duration: parseInt(inputs[0].value)||null, level: parseInt(inputs[1].value)||null };
-    }
+    return type==='weight'
+      ? { weight: parseFloat(inputs[0].value)||null, reps: parseInt(inputs[1].value)||null }
+      : { duration: parseInt(inputs[0].value)||null, level: parseInt(inputs[1].value)||null };
   });
 }
 
 function initSetRows(lastSession) {
-  // Clear rows
   document.getElementById('weight-rows').innerHTML = '';
-  document.getElementById('time-rows').innerHTML = '';
-
+  document.getElementById('time-rows').innerHTML   = '';
   if (lastSession && Array.isArray(lastSession.sets) && lastSession.sets.length) {
-    // Pre-fill from last session
-    const s = lastSession.sets[0];
-    const type = (s.duration !== undefined) ? 'time' : 'weight';
+    const type = (lastSession.sets[0].duration !== undefined) ? 'time' : 'weight';
     setType(type);
     lastSession.sets.forEach(sv => addSetRow(type, sv));
   } else {
-    // Default: 3 blank weight rows
     setType('weight');
-    addSetRow('weight');
-    addSetRow('weight');
-    addSetRow('weight');
+    addSetRow('weight'); addSetRow('weight'); addSetRow('weight');
   }
 }
 
-// ── Logging ───────────────────────────────────────────────────────────────────
 async function deleteSession(machineId, date) {
   if (!confirm(`Delete session from ${formatDate(date)}?`)) return;
   const before = state.log.length;
-  state.log = state.log.filter(r => !(r.machineId === machineId && r.date === date));
+  state.log = state.log.filter(r => !(r.machineId===machineId && r.date===date));
   if (state.log.length === before) return;
   const btn = document.getElementById('btn-log');
-  btn.disabled = true;
-  btn.innerHTML = '<span>⏳</span> Deleting…';
+  btn.disabled=true; btn.innerHTML='<span>⏳</span> Deleting…';
   const ok = await saveLog();
-  btn.disabled = false;
-  btn.innerHTML = '<span>💾</span> Save Session';
-  if (ok) {
-    showToast('Session deleted', 'success');
-    selectMachine(machineId);
-  } else {
-    // revert
-    await fetchLog();
-  }
+  btn.disabled=false; btn.innerHTML='<span>💾</span> Save Session';
+  if (ok) { showToast('Session deleted','success'); selectMachine(machineId); }
+  else await fetchLog();
 }
 
 function editSession(machineId, date) {
-  const history = getHistory(machineId);
-  const session = history.find(s => s.date === date);
+  const session = getHistory(machineId).find(s => s.date===date);
   if (!session) return;
-
   state.editingDate = date;
-
-  // Scroll to log form and pre-fill
-  document.getElementById('log-date').value = date;
+  document.getElementById('log-date').value  = date;
   document.getElementById('log-notes').value = session.notes || '';
   initSetRows(session);
-
-  // Visual cue: change button label
   document.getElementById('btn-log').innerHTML = '<span>💾</span> Update Session';
-
-  // Scroll to form
-  document.getElementById('btn-log').scrollIntoView({ behavior: 'smooth', block: 'center' });
-  showToast('Editing session — make changes and save', '');
+  document.getElementById('btn-log').scrollIntoView({ behavior:'smooth', block:'center' });
+  showToast('Editing session — make changes and save','');
 }
 
 async function logSession() {
   const btn = document.getElementById('btn-log');
-  btn.disabled = true;
-  btn.innerHTML = '<span>⏳</span> Saving…';
+  btn.disabled=true; btn.innerHTML='<span>⏳</span> Saving…';
 
   const type = state.logType;
   const rows = getSetRows(type);
-  const validRows = rows.filter(r =>
-    type === 'weight' ? (r.weight !== null || r.reps !== null)
-                      : (r.duration !== null)
-  );
+  const validRows = rows.filter(r => type==='weight' ? (r.weight!==null||r.reps!==null) : r.duration!==null);
 
-  if (!validRows.length) {
-    showToast('Fill in at least one set', 'error');
-    resetBtn(); return;
-  }
+  if (!validRows.length) { showToast('Fill in at least one set','error'); resetBtn(); return; }
 
+  const gym  = state.equipment.find(g => g.id===state.gym);
+  const room = gym?.rooms.find(r => r.id===state.room);
   const base = {
     machineId: state.machine.id,
     machine:   state.machine.name,
-    gym:  state.gym === 'fifth' ? '5th Street Gym' : 'Portofino Gym',
-    room: state.room ? GYMS.portofino.rooms[state.room] : null,
-    date: document.getElementById('log-date').value || todayStr(),
-    notes: document.getElementById('log-notes').value.trim(),
+    gym:       gym  ? gym.name  : (state.gym  || ''),
+    room:      gym?.rooms.length===1 ? null : (room ? room.name : null),
+    date:      document.getElementById('log-date').value || todayStr(),
+    notes:     document.getElementById('log-notes').value.trim(),
   };
 
-  // One flat row per set
-  const newRows = validRows.map((r, i) => ({
-    ...base,
-    set:      i + 1,
-    weight:   r.weight   ?? null,
-    reps:     r.reps     ?? null,
-    duration: r.duration ?? null,
-    level:    r.level    ?? null,
+  const newRows = validRows.map((r,i) => ({
+    ...base, set: i+1,
+    weight: r.weight??null, reps: r.reps??null,
+    duration: r.duration??null, level: r.level??null,
   }));
+  newRows.forEach((r,i) => { if (i>0) r.notes=''; });
 
-  // Notes only on first row to avoid repetition
-  newRows.forEach((r, i) => { if (i > 0) r.notes = ''; });
-
-  // If editing, remove the old rows for that date first
   const removedRows = [];
   if (state.editingDate) {
-    const mid = state.machine.id;
-    const ed  = state.editingDate;
-    state.log.forEach(r => { if (r.machineId === mid && r.date === ed) removedRows.push(r); });
-    state.log = state.log.filter(r => !(r.machineId === mid && r.date === ed));
+    const mid=state.machine.id, ed=state.editingDate;
+    state.log.forEach(r => { if (r.machineId===mid && r.date===ed) removedRows.push(r); });
+    state.log = state.log.filter(r => !(r.machineId===mid && r.date===ed));
   }
 
   state.log.push(...newRows);
   const ok = await saveLog();
-
   if (ok) {
     const msg = state.editingDate ? 'Session updated! 💪' : 'Session saved! 💪';
     state.editingDate = null;
-    showToast(msg, 'success');
+    showToast(msg,'success');
     selectMachine(state.machine.id);
   } else {
-    // revert
     state.log.splice(state.log.length - newRows.length, newRows.length);
     if (removedRows.length) state.log.push(...removedRows);
   }
-
   resetBtn();
-  function resetBtn() {
-    btn.disabled = false;
-    btn.innerHTML = '<span>💾</span> Save Session';
-    state.editingDate = null;
-  }
+  function resetBtn() { btn.disabled=false; btn.innerHTML='<span>💾</span> Save Session'; state.editingDate=null; }
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1081,7 +1137,7 @@ function showSettings() {
     statusEl.className = 'token-status ok';
     statusEl.textContent = '✓ Token saved — workouts will sync to GitHub';
     document.getElementById('token-input').value = '';
-    document.getElementById('token-input').placeholder = '(token already saved — paste new one to replace)';
+    document.getElementById('token-input').placeholder = '(token saved — paste new one to replace)';
   } else {
     statusEl.className = 'token-status missing';
     statusEl.textContent = '⚠ No token saved — workouts can\'t be saved yet';
@@ -1093,120 +1149,310 @@ function showSettings() {
 
 function saveToken() {
   const val = document.getElementById('token-input').value.trim();
-  if (!val) { showToast('Paste your token first', 'error'); return; }
+  if (!val) { showToast('Paste your token first','error'); return; }
   localStorage.setItem('gh_token', val);
-  showToast('Token saved!', 'success');
+  showToast('Token saved!','success');
   fetchLog();
+  fetchEquipment();
   const statusEl = document.getElementById('token-status');
   statusEl.className = 'token-status ok';
   statusEl.textContent = '✓ Token saved — workouts will sync to GitHub';
   document.getElementById('token-input').value = '';
-  document.getElementById('token-input').placeholder = '(token already saved — paste new one to replace)';
+  document.getElementById('token-input').placeholder = '(token saved — paste new one to replace)';
+}
+
+// ═══════════════════════════════════════════════════════
+// MANAGE EQUIPMENT
+// ═══════════════════════════════════════════════════════
+function showManageEquipment() {
+  push(() => showScreen('settings','Settings'));
+  renderManageEquipment();
+  showScreen('manage-equip','Manage Equipment');
+}
+
+function renderManageEquipment() {
+  document.getElementById('equip-list').innerHTML = state.equipment.map(gym => `
+    <div class="equip-gym">
+      <div class="equip-gym-header">${gym.icon||'🏋️'} ${gym.name}</div>
+      ${gym.rooms.map(room => `
+        <div class="equip-room">
+          <div class="equip-room-header">
+            <span>${room.icon||''} ${room.name}</span>
+            <button class="equip-btn-add-machine" onclick="openAddMachineModal('${gym.id}','${room.id}')">+ Machine</button>
+          </div>
+          <div class="equip-machine-list">
+            ${room.machines.length === 0 ? '<div style="padding:10px 16px;font-size:12px;color:var(--text-muted);font-style:italic">No machines yet</div>' :
+              room.machines.map(m => `
+              <div class="equip-machine-row">
+                <div class="equip-machine-info">
+                  <strong>${m.name}</strong>
+                  <span>${m.muscles}</span>
+                </div>
+                <div class="equip-machine-actions">
+                  <button onclick="openEditMachineModal('${m.id}')">✏</button>
+                  <button onclick="deleteMachineFromEquip('${m.id}')">🗑</button>
+                </div>
+              </div>`).join('')}
+          </div>
+        </div>`).join('')}
+      <button class="equip-btn-add-room" onclick="openAddRoomModal('${gym.id}')">+ Add Room to ${gym.name}</button>
+    </div>`).join('');
+}
+
+// ─── Machine Modal ─────────────────────────────────────
+function openEditMachineModal(machineId) {
+  const m = findMachine(machineId);
+  if (!m) return;
+  modalState = { mode:'edit', machineId, gymId:m.gymId, roomId:m.roomId, newPhotoBase64:null };
+  document.getElementById('modal-title').textContent = 'Edit Machine';
+  document.getElementById('modal-name').value    = m.name;
+  document.getElementById('modal-muscles').value = m.muscles;
+  document.getElementById('modal-location').style.display = 'none';
+  const photoEl = document.getElementById('modal-photo');
+  if (m.img) {
+    photoEl.src = m.img.startsWith('data:') || m.img.startsWith('http') ? m.img : `${IMG_BASE}/${encodeImagePath(m.img)}`;
+    photoEl.style.display = 'block';
+  } else { photoEl.src=''; photoEl.style.display='none'; }
+  document.getElementById('modal-save-btn').textContent = 'Save';
+  document.getElementById('modal-save-btn').disabled = false;
+  document.getElementById('machine-modal').style.display = 'flex';
+}
+
+function openAddMachineModal(gymId, roomId) {
+  modalState = { mode:'add', machineId:null, gymId, roomId, newPhotoBase64:null };
+  document.getElementById('modal-title').textContent = 'Add Machine';
+  document.getElementById('modal-name').value    = '';
+  document.getElementById('modal-muscles').value = '';
+  const photoEl = document.getElementById('modal-photo');
+  photoEl.src=''; photoEl.style.display='none';
+  document.getElementById('modal-location').style.display = 'block';
+  populateGymSel(gymId, roomId);
+  document.getElementById('modal-save-btn').textContent = 'Add Machine';
+  document.getElementById('modal-save-btn').disabled = false;
+  document.getElementById('machine-modal').style.display = 'flex';
+}
+
+function populateGymSel(selectedGymId, selectedRoomId) {
+  document.getElementById('modal-gym-sel').innerHTML =
+    state.equipment.map(g => `<option value="${g.id}" ${g.id===selectedGymId?'selected':''}>${g.name}</option>`).join('');
+  populateRoomSel(selectedGymId, selectedRoomId);
+}
+
+function populateRoomSel(gymId, selectedRoomId) {
+  if (!gymId) gymId = document.getElementById('modal-gym-sel').value;
+  const gym = state.equipment.find(g => g.id === gymId);
+  document.getElementById('modal-room-sel').innerHTML = (gym?.rooms||[]).map(r =>
+    `<option value="${r.id}" ${r.id===selectedRoomId?'selected':''}>${r.name}</option>`).join('');
+}
+
+function closeMachineModal(e) {
+  if (e && e.target !== document.getElementById('machine-modal')) return;
+  document.getElementById('machine-modal').style.display = 'none';
+  modalState = { mode:null, machineId:null, gymId:null, roomId:null, newPhotoBase64:null };
+}
+
+async function saveMachineFromModal() {
+  const name    = document.getElementById('modal-name').value.trim();
+  const muscles = document.getElementById('modal-muscles').value.trim();
+  if (!name) { showToast('Please enter a machine name','error'); return; }
+
+  const btn = document.getElementById('modal-save-btn');
+  btn.disabled = true; btn.textContent = 'Saving…';
+
+  try {
+    if (modalState.mode === 'edit') {
+      for (const gym of state.equipment) {
+        for (const room of gym.rooms) {
+          const m = room.machines.find(x => x.id === modalState.machineId);
+          if (m) {
+            m.name    = name;
+            m.muscles = muscles;
+            if (modalState.newPhotoBase64) {
+              const path = `images/custom/${modalState.machineId}.jpg`;
+              await uploadPhoto(modalState.newPhotoBase64, path);
+              m.img = `custom/${modalState.machineId}.jpg`;
+            }
+          }
+        }
+      }
+    } else {
+      const gymId  = document.getElementById('modal-gym-sel').value;
+      const roomId = document.getElementById('modal-room-sel').value;
+      const gym    = state.equipment.find(g => g.id===gymId);
+      const room   = gym?.rooms.find(r => r.id===roomId);
+      if (!room) { showToast('Room not found','error'); btn.disabled=false; btn.textContent='Add Machine'; return; }
+      const newId = 'm' + Date.now();
+      let imgPath = null;
+      if (modalState.newPhotoBase64) {
+        const path = `images/custom/${newId}.jpg`;
+        await uploadPhoto(modalState.newPhotoBase64, path);
+        imgPath = `custom/${newId}.jpg`;
+      }
+      room.machines.push({ id: newId, name, muscles, img: imgPath });
+    }
+
+    const ok = await saveEquipment(modalState.mode==='edit' ? `Edit machine: ${name}` : `Add machine: ${name}`);
+    if (ok) {
+      showToast(modalState.mode==='edit' ? 'Machine updated!' : 'Machine added!', 'success');
+      document.getElementById('machine-modal').style.display = 'none';
+      renderManageEquipment();
+      renderHome();
+    }
+  } catch(e) {
+    showToast('Error: ' + e.message, 'error');
+  }
+  btn.disabled=false;
+  btn.textContent = modalState.mode==='edit' ? 'Save' : 'Add Machine';
+}
+
+async function deleteMachineFromEquip(machineId) {
+  const m = findMachine(machineId);
+  if (!m) return;
+  const sessions = getHistory(machineId).length;
+  const msg = sessions > 0
+    ? `Delete "${m.name}"?\n\n${sessions} session${sessions>1?'s':''} in your history will be hidden (the data stays in your log).`
+    : `Delete "${m.name}"?`;
+  if (!confirm(msg)) return;
+  for (const gym of state.equipment) {
+    for (const room of gym.rooms) {
+      const idx = room.machines.findIndex(x => x.id===machineId);
+      if (idx !== -1) { room.machines.splice(idx,1); break; }
+    }
+  }
+  const ok = await saveEquipment(`Delete machine: ${m.name}`);
+  if (ok) { showToast('Machine deleted','success'); renderManageEquipment(); renderHome(); }
+}
+
+// ─── Gym/Room Add Modal ────────────────────────────────
+function openAddRoomModal(gymId) {
+  gymRoomState = { mode:'room', gymId };
+  document.getElementById('gr-modal-title').textContent = 'Add Room';
+  document.getElementById('gr-name-label').textContent  = 'Room Name';
+  document.getElementById('gr-name').value = '';
+  document.getElementById('gr-name').placeholder = 'e.g. Cardio Room';
+  document.getElementById('gr-gym-extra').style.display  = 'none';
+  document.getElementById('gr-room-extra').style.display = 'block';
+  document.getElementById('gr-room-icon').value = '';
+  document.getElementById('gym-room-modal').style.display = 'flex';
+}
+
+function openAddGymModal() {
+  gymRoomState = { mode:'gym', gymId:null };
+  document.getElementById('gr-modal-title').textContent = 'Add Gym';
+  document.getElementById('gr-name-label').textContent  = 'Gym Name';
+  document.getElementById('gr-name').value = '';
+  document.getElementById('gr-name').placeholder = 'e.g. Beach Gym';
+  document.getElementById('gr-icon').value = '🏋️';
+  document.getElementById('gr-subtitle').value = '';
+  document.getElementById('gr-gym-extra').style.display  = 'block';
+  document.getElementById('gr-room-extra').style.display = 'none';
+  document.getElementById('gym-room-modal').style.display = 'flex';
+}
+
+function closeGymRoomModal(e) {
+  if (e && e.target !== document.getElementById('gym-room-modal')) return;
+  document.getElementById('gym-room-modal').style.display = 'none';
+}
+
+async function saveGymOrRoom() {
+  const name = document.getElementById('gr-name').value.trim();
+  if (!name) { showToast('Please enter a name','error'); return; }
+
+  if (gymRoomState.mode === 'gym') {
+    const icon     = document.getElementById('gr-icon').value.trim() || '🏋️';
+    const subtitle = document.getElementById('gr-subtitle').value.trim() || 'Gym';
+    const newId    = 'gym_' + Date.now();
+    state.equipment.push({
+      id: newId, name, icon, subtitle,
+      rooms: [{ id: 'room_' + Date.now(), name, icon, machines: [] }]
+    });
+  } else {
+    const gym  = state.equipment.find(g => g.id===gymRoomState.gymId);
+    if (!gym) return;
+    const icon = document.getElementById('gr-room-icon').value.trim() || '🏋️';
+    gym.rooms.push({ id: 'room_' + Date.now(), name, icon, machines: [] });
+  }
+
+  const ok = await saveEquipment(gymRoomState.mode==='gym' ? `Add gym: ${name}` : `Add room: ${name}`);
+  if (ok) {
+    showToast(gymRoomState.mode==='gym' ? 'Gym added!' : 'Room added!','success');
+    document.getElementById('gym-room-modal').style.display = 'none';
+    renderManageEquipment();
+    renderHome();
+  }
 }
 
 // ═══════════════════════════════════════════════════════
 // HELPERS
 // ═══════════════════════════════════════════════════════
-function showHome() {
-  navStack = [];
-  showScreen('home', 'Workout Coach', false);
-  const hasToken = !!getToken();
-  document.getElementById('setup-banner-home').style.display = hasToken ? 'none' : 'block';
-}
-
 function findMachine(id) {
-  // Search all gyms/rooms
-  for (const gym of Object.values(GYMS)) {
-    if (gym.machines) {
-      const m = gym.machines.find(x => x.id === id);
-      if (m) return m;
-    }
-    if (gym.machinesByRoom) {
-      for (const room of Object.values(gym.machinesByRoom)) {
-        const m = room.find(x => x.id === id);
-        if (m) return m;
-      }
+  for (const gym of state.equipment) {
+    for (const room of gym.rooms) {
+      const m = room.machines.find(x => x.id === id);
+      if (m) return { ...m, gymId: gym.id, roomId: room.id };
     }
   }
   return null;
 }
 
 function getHistory(machineId) {
-  // Filter flat rows for this machine, sort newest first then by set number
   const rows = state.log
     .filter(r => r.machineId === machineId)
-    .sort((a, b) => b.date.localeCompare(a.date) || a.set - b.set);
-
-  // Group by date into session objects (one session per date per machine)
-  const sessions = [];
-  const seen = {};
+    .sort((a,b) => b.date.localeCompare(a.date) || a.set - b.set);
+  const sessions = [], seen = {};
   for (const row of rows) {
-    if (!seen[row.date]) {
-      seen[row.date] = { date: row.date, notes: row.notes, sets: [] };
-      sessions.push(seen[row.date]);
-    }
-    seen[row.date].sets.push({
-      weight:   row.weight,
-      reps:     row.reps,
-      duration: row.duration,
-      level:    row.level,
-    });
-    if (row.notes) seen[row.date].notes = row.notes; // keep any non-empty notes
+    if (!seen[row.date]) { seen[row.date] = { date: row.date, notes: row.notes, sets: [] }; sessions.push(seen[row.date]); }
+    seen[row.date].sets.push({ weight: row.weight, reps: row.reps, duration: row.duration, level: row.level });
+    if (row.notes) seen[row.date].notes = row.notes;
   }
   return sessions;
 }
 
 function formatShort(s) {
-  // Used on machine grid cards — show last session in one line
   if (!s) return '—';
   if (Array.isArray(s.sets) && s.sets.length) {
     const first = s.sets[0];
     if (first.duration !== undefined) {
-      const mins = s.sets.map(r => r.duration).filter(Boolean);
-      return `${mins.reduce((a,b)=>a+b,0)} min`;
+      return `${s.sets.map(r=>r.duration).filter(Boolean).reduce((a,b)=>a+b,0)} min`;
     }
-    const weights = s.sets.map(r => r.weight).filter(v => v !== null && v !== undefined);
-    const reps    = s.sets.map(r => r.reps).filter(v => v !== null && v !== undefined);
-    const wStr = weights.length ? (Math.min(...weights) === Math.max(...weights)
-      ? `${weights[0]} lbs` : `${Math.min(...weights)}–${Math.max(...weights)} lbs`) : '';
-    const rStr = reps.length ? `${Math.min(...reps)}–${Math.max(...reps)} reps` : '';
-    return [wStr, rStr].filter(Boolean).join(' · ') || '—';
+    const ws = s.sets.map(r=>r.weight).filter(v=>v!==null&&v!==undefined);
+    const rs = s.sets.map(r=>r.reps).filter(v=>v!==null&&v!==undefined);
+    const wStr = ws.length ? (Math.min(...ws)===Math.max(...ws) ? `${ws[0]} lbs` : `${Math.min(...ws)}–${Math.max(...ws)} lbs`) : '';
+    const rStr = rs.length ? `${Math.min(...rs)}–${Math.max(...rs)} reps` : '';
+    return [wStr,rStr].filter(Boolean).join(' · ') || '—';
   }
-  // Legacy flat format
-  if (s.weight !== undefined && s.reps !== undefined) return `${s.weight} lbs × ${s.reps}`;
-  if (s.weight !== undefined) return `${s.weight} lbs`;
-  if (s.duration !== undefined) return `${s.duration} min`;
+  if (s.weight!==undefined && s.reps!==undefined) return `${s.weight} lbs × ${s.reps}`;
+  if (s.weight!==undefined) return `${s.weight} lbs`;
+  if (s.duration!==undefined) return `${s.duration} min`;
   return '—';
 }
 
 function formatSummary(s) {
-  // Top-right on history item — e.g. "3 sets"
-  if (Array.isArray(s.sets)) return `${s.sets.length} set${s.sets.length !== 1 ? 's' : ''}`;
+  if (Array.isArray(s.sets)) return `${s.sets.length} set${s.sets.length!==1?'s':''}`;
   if (s.sets) return `${s.sets} sets`;
   return '';
 }
 
 function formatSetsList(s) {
-  // Inline set-by-set detail shown below the date
   if (Array.isArray(s.sets) && s.sets.length) {
-    return s.sets.map((r, i) => {
-      let val = '';
-      if (r.duration !== null && r.duration !== undefined) {
+    return s.sets.map((r,i) => {
+      let val;
+      if (r.duration!==null && r.duration!==undefined) {
         val = `${r.duration} min${r.level ? ` · lvl ${r.level}` : ''}`;
       } else {
-        val = [r.weight !== null && r.weight !== undefined ? `${r.weight} lbs` : '',
-               r.reps   !== null && r.reps   !== undefined ? `${r.reps} reps`  : '']
-               .filter(Boolean).join(' × ');
+        val = [
+          r.weight!==null&&r.weight!==undefined ? `${r.weight} lbs` : '',
+          r.reps  !==null&&r.reps  !==undefined ? `${r.reps} reps`  : ''
+        ].filter(Boolean).join(' × ');
       }
-      return `<span>Set ${i+1}: ${val || '—'}</span>`;
+      return `<span>Set ${i+1}: ${val||'—'}</span>`;
     }).join('');
   }
-  // Legacy flat format
-  const parts = [];
-  if (s.weight !== undefined) parts.push(`${s.weight} lbs`);
-  if (s.reps !== undefined)   parts.push(`${s.reps} reps`);
-  if (s.duration !== undefined) parts.push(`${s.duration} min`);
-  return parts.map(p => `<span>${p}</span>`).join('');
+  return [
+    s.weight!==undefined   ? `<span>${s.weight} lbs</span>` : '',
+    s.reps!==undefined     ? `<span>${s.reps} reps</span>`  : '',
+    s.duration!==undefined ? `<span>${s.duration} min</span>` : '',
+  ].join('');
 }
 
 function formatDate(str) {
@@ -1215,9 +1461,7 @@ function formatDate(str) {
   return new Date(y,m-1,d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 }
 
-function todayStr() {
-  return new Date().toISOString().slice(0,10);
-}
+function todayStr() { return new Date().toISOString().slice(0,10); }
 
 function encodeImagePath(path) {
   return path.split('/').map(p => encodeURIComponent(p)).join('/');
@@ -1235,7 +1479,7 @@ function showToast(msg, type='') {
 // ═══════════════════════════════════════════════════════
 (async function init() {
   showHome();
-  await fetchLog();
+  await Promise.all([fetchLog(), fetchEquipment()]);
 })();
 </script>
 </body>
