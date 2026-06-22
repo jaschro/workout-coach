@@ -329,6 +329,21 @@
   .history-sets { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.6; }
   .history-sets span { display: inline-block; margin-right: 10px; }
 
+  /* ── History action buttons ── */
+  .history-actions { display: flex; gap: 6px; flex-shrink: 0; }
+  .history-actions button {
+    background: none;
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    padding: 4px 9px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--text-muted);
+    line-height: 1;
+  }
+  .history-actions .btn-edit:active  { background: var(--accent); color: var(--primary); }
+  .history-actions .btn-delete:active { background: #fee2e2; color: #dc2626; border-color: #dc2626; }
+
   .btn-log {
     width: 100%;
     background: var(--primary);
@@ -582,9 +597,10 @@
 // CONFIG
 // ═══════════════════════════════════════════════════════
 const REPO_OWNER = 'jaschro';
-const REPO_NAME  = 'workout-coach';
+const CODE_REPO  = 'workout-coach';                  // public — app + images
+const DATA_REPO  = 'workout-coach-private-data';     // private — workout log
 const LOG_PATH   = 'workout-log.json';
-const IMG_BASE   = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/images`;
+const IMG_BASE   = `https://raw.githubusercontent.com/${REPO_OWNER}/${CODE_REPO}/main/images`;
 
 // ═══════════════════════════════════════════════════════
 // EQUIPMENT DATA
@@ -659,13 +675,14 @@ const GYMS = {
 // STATE
 // ═══════════════════════════════════════════════════════
 let state = {
-  gym: null,      // 'fifth' | 'portofino'
-  room: null,     // 'machines' | 'weights' | 'aerobic' | null
-  machine: null,  // machine object
+  gym: null,        // 'fifth' | 'portofino'
+  room: null,       // 'machines' | 'weights' | 'aerobic' | null
+  machine: null,    // machine object
   logType: 'weight',
-  log: [],        // flat rows loaded from GitHub
-  logSha: null,   // GitHub file SHA for updates
-  csvSha: null,   // GitHub CSV file SHA for updates
+  log: [],          // flat rows loaded from GitHub
+  logSha: null,     // GitHub file SHA for updates
+  csvSha: null,     // GitHub CSV file SHA for updates
+  editingDate: null, // date string when editing an existing session
 };
 
 let navStack = [];
@@ -677,9 +694,9 @@ function getToken() {
   return localStorage.getItem('gh_token') || '';
 }
 
-async function ghGet(path, token) {
+async function ghGet(path, token, repo=DATA_REPO) {
   const res = await fetch(
-    `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`,
+    `https://api.github.com/repos/${REPO_OWNER}/${repo}/contents/${path}`,
     { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } }
   );
   if (res.status === 404) return null;
@@ -687,11 +704,11 @@ async function ghGet(path, token) {
   return res.json();
 }
 
-async function ghPut(path, content, sha, message, token) {
+async function ghPut(path, content, sha, message, token, repo=DATA_REPO) {
   const body = { message, content };
   if (sha) body.sha = sha;
   const res = await fetch(
-    `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`,
+    `https://api.github.com/repos/${REPO_OWNER}/${repo}/contents/${path}`,
     {
       method: 'PUT',
       headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
@@ -842,9 +859,15 @@ function selectMachine(machineId) {
   } else {
     histEl.innerHTML = history.map(s => `
       <div class="history-item" style="flex-direction:column;align-items:flex-start;gap:4px">
-        <div style="display:flex;justify-content:space-between;width:100%">
+        <div style="display:flex;justify-content:space-between;width:100%;align-items:center">
           <div class="history-date">${formatDate(s.date)}</div>
-          <div class="history-stats">${formatSummary(s)}</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="history-stats">${formatSummary(s)}</div>
+            <div class="history-actions">
+              <button class="btn-edit"   onclick="editSession('${machineId}','${s.date}')"   title="Edit">✏</button>
+              <button class="btn-delete" onclick="deleteSession('${machineId}','${s.date}')" title="Delete">🗑</button>
+            </div>
+          </div>
         </div>
         <div class="history-sets">${formatSetsList(s)}</div>
       </div>`).join('');
@@ -938,6 +961,46 @@ function initSetRows(lastSession) {
 }
 
 // ── Logging ───────────────────────────────────────────────────────────────────
+async function deleteSession(machineId, date) {
+  if (!confirm(`Delete session from ${formatDate(date)}?`)) return;
+  const before = state.log.length;
+  state.log = state.log.filter(r => !(r.machineId === machineId && r.date === date));
+  if (state.log.length === before) return;
+  const btn = document.getElementById('btn-log');
+  btn.disabled = true;
+  btn.innerHTML = '<span>⏳</span> Deleting…';
+  const ok = await saveLog();
+  btn.disabled = false;
+  btn.innerHTML = '<span>💾</span> Save Session';
+  if (ok) {
+    showToast('Session deleted', 'success');
+    selectMachine(machineId);
+  } else {
+    // revert
+    await fetchLog();
+  }
+}
+
+function editSession(machineId, date) {
+  const history = getHistory(machineId);
+  const session = history.find(s => s.date === date);
+  if (!session) return;
+
+  state.editingDate = date;
+
+  // Scroll to log form and pre-fill
+  document.getElementById('log-date').value = date;
+  document.getElementById('log-notes').value = session.notes || '';
+  initSetRows(session);
+
+  // Visual cue: change button label
+  document.getElementById('btn-log').innerHTML = '<span>💾</span> Update Session';
+
+  // Scroll to form
+  document.getElementById('btn-log').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  showToast('Editing session — make changes and save', '');
+}
+
 async function logSession() {
   const btn = document.getElementById('btn-log');
   btn.disabled = true;
@@ -977,20 +1040,34 @@ async function logSession() {
   // Notes only on first row to avoid repetition
   newRows.forEach((r, i) => { if (i > 0) r.notes = ''; });
 
+  // If editing, remove the old rows for that date first
+  const removedRows = [];
+  if (state.editingDate) {
+    const mid = state.machine.id;
+    const ed  = state.editingDate;
+    state.log.forEach(r => { if (r.machineId === mid && r.date === ed) removedRows.push(r); });
+    state.log = state.log.filter(r => !(r.machineId === mid && r.date === ed));
+  }
+
   state.log.push(...newRows);
   const ok = await saveLog();
 
   if (ok) {
-    showToast('Session saved! 💪', 'success');
+    const msg = state.editingDate ? 'Session updated! 💪' : 'Session saved! 💪';
+    state.editingDate = null;
+    showToast(msg, 'success');
     selectMachine(state.machine.id);
   } else {
+    // revert
     state.log.splice(state.log.length - newRows.length, newRows.length);
+    if (removedRows.length) state.log.push(...removedRows);
   }
 
   resetBtn();
   function resetBtn() {
     btn.disabled = false;
     btn.innerHTML = '<span>💾</span> Save Session';
+    state.editingDate = null;
   }
 }
 
@@ -1114,7 +1191,7 @@ function formatSetsList(s) {
   if (Array.isArray(s.sets) && s.sets.length) {
     return s.sets.map((r, i) => {
       let val = '';
-      if (r.duration !== undefined) {
+      if (r.duration !== null && r.duration !== undefined) {
         val = `${r.duration} min${r.level ? ` · lvl ${r.level}` : ''}`;
       } else {
         val = [r.weight !== null && r.weight !== undefined ? `${r.weight} lbs` : '',
