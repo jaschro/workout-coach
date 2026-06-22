@@ -4,7 +4,7 @@ Uploads updated app files to the public repo and data files to the private repo.
 """
 import base64, json, os, urllib.request, urllib.error, urllib.parse
 
-TOKEN      = "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"
+TOKEN      = input("GitHub PAT: ").strip()
 OWNER      = "jaschro"
 CODE_REPO  = "workout-coach"
 DATA_REPO  = "workout-coach-private-data"
