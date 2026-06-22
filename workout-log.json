@@ -427,5 +427,18 @@
     "duration": null,
     "level": null,
     "notes": ""
+  },
+  {
+    "machineId": "f01",
+    "machine": "Combined Exerciser",
+    "gym": "5th Street Gym",
+    "room": null,
+    "date": "2026-06-22",
+    "notes": "",
+    "set": 1,
+    "weight": null,
+    "reps": 10,
+    "duration": null,
+    "level": null
   }
 ]
