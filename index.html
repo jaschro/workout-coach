@@ -733,6 +733,14 @@ async function ghPut(path, content, sha, message, token, repo=DATA_REPO) {
   return res.json();
 }
 
+// Decode base64 content from GitHub API, preserving UTF-8 (emoji etc.)
+function decodeB64Utf8(b64) {
+  const raw = atob(b64.replace(/\n/g, ''));
+  const bytes = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+  return new TextDecoder('utf-8').decode(bytes);
+}
+
 // ═══════════════════════════════════════════════════════
 // EQUIPMENT
 // ═══════════════════════════════════════════════════════
@@ -743,7 +751,7 @@ async function fetchEquipment() {
     const data = await ghGet(EQUIPMENT_PATH, token);
     if (data) {
       state.equipmentSha = data.sha;
-      state.equipment = JSON.parse(atob(data.content.replace(/\n/g,'')));
+      state.equipment = JSON.parse(decodeB64Utf8(data.content));
     } else {
       // First run: bootstrap equipment.json from fallback
       state.equipment = FALLBACK_EQUIPMENT;
