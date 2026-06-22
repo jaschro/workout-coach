@@ -1,244 +1,431 @@
 [
   {
     "machineId": "pm12",
-    "machineName": "Hip Adduction Machine",
+    "machine": "Hip Adduction Machine",
     "gym": "Portofino Gym",
     "room": "Machines Room",
     "date": "2026-06-20",
-    "sets": [
-      {
-        "weight": 55,
-        "reps": 10
-      },
-      {
-        "weight": 70,
-        "reps": 10
-      },
-      {
-        "weight": 85,
-        "reps": 10
-      }
-    ],
+    "set": 1,
+    "weight": 55,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm12",
+    "machine": "Hip Adduction Machine",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 2,
+    "weight": 70,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm12",
+    "machine": "Hip Adduction Machine",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 3,
+    "weight": 85,
+    "reps": 10,
+    "duration": null,
+    "level": null,
     "notes": ""
   },
   {
     "machineId": "pm14",
-    "machineName": "Glute Isolator",
+    "machine": "Glute Isolator",
     "gym": "Portofino Gym",
     "room": "Machines Room",
     "date": "2026-06-20",
-    "sets": [
-      {
-        "weight": 10,
-        "reps": 10
-      },
-      {
-        "weight": 30,
-        "reps": 10
-      },
-      {
-        "weight": 50,
-        "reps": 10
-      }
-    ],
+    "set": 1,
+    "weight": 10,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm14",
+    "machine": "Glute Isolator",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 2,
+    "weight": 30,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm14",
+    "machine": "Glute Isolator",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 3,
+    "weight": 50,
+    "reps": 10,
+    "duration": null,
+    "level": null,
     "notes": ""
   },
   {
     "machineId": "pm06",
-    "machineName": "Seated Leg Curl Machine",
+    "machine": "Seated Leg Curl Machine",
     "gym": "Portofino Gym",
     "room": "Machines Room",
     "date": "2026-06-20",
-    "sets": [
-      {
-        "weight": 15,
-        "reps": 10
-      },
-      {
-        "weight": 30,
-        "reps": 10
-      }
-    ],
+    "set": 1,
+    "weight": 15,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm06",
+    "machine": "Seated Leg Curl Machine",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 2,
+    "weight": 30,
+    "reps": 10,
+    "duration": null,
+    "level": null,
     "notes": ""
   },
   {
     "machineId": "pm05",
-    "machineName": "Seated Leg Extension Machine",
+    "machine": "Seated Leg Extension Machine",
     "gym": "Portofino Gym",
     "room": "Machines Room",
     "date": "2026-06-20",
-    "sets": [
-      {
-        "weight": 20,
-        "reps": 10
-      },
-      {
-        "weight": 35,
-        "reps": 10
-      },
-      {
-        "weight": 50,
-        "reps": null
-      }
-    ],
+    "set": 1,
+    "weight": 20,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm05",
+    "machine": "Seated Leg Extension Machine",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 2,
+    "weight": 35,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm05",
+    "machine": "Seated Leg Extension Machine",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 3,
+    "weight": 50,
+    "reps": null,
+    "duration": null,
+    "level": null,
     "notes": ""
   },
   {
     "machineId": "pm10",
-    "machineName": "Seated Biceps Curl Machine",
+    "machine": "Seated Biceps Curl Machine",
     "gym": "Portofino Gym",
     "room": "Machines Room",
     "date": "2026-06-20",
-    "sets": [
-      {
-        "weight": 25,
-        "reps": 10
-      },
-      {
-        "weight": 40,
-        "reps": 10
-      },
-      {
-        "weight": 55,
-        "reps": 10
-      }
-    ],
+    "set": 1,
+    "weight": 25,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm10",
+    "machine": "Seated Biceps Curl Machine",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 2,
+    "weight": 40,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm10",
+    "machine": "Seated Biceps Curl Machine",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 3,
+    "weight": 55,
+    "reps": 10,
+    "duration": null,
+    "level": null,
     "notes": ""
   },
   {
     "machineId": "pm03",
-    "machineName": "Seated Chest Press Machine",
+    "machine": "Seated Chest Press Machine",
     "gym": "Portofino Gym",
     "room": "Machines Room",
     "date": "2026-06-20",
-    "sets": [
-      {
-        "weight": 50,
-        "reps": 15
-      },
-      {
-        "weight": 65,
-        "reps": 10
-      },
-      {
-        "weight": 80,
-        "reps": 10
-      }
-    ],
+    "set": 1,
+    "weight": 50,
+    "reps": 15,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm03",
+    "machine": "Seated Chest Press Machine",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 2,
+    "weight": 65,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm03",
+    "machine": "Seated Chest Press Machine",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 3,
+    "weight": 80,
+    "reps": 10,
+    "duration": null,
+    "level": null,
     "notes": ""
   },
   {
     "machineId": "pm02",
-    "machineName": "Seated Row Machine",
+    "machine": "Seated Row Machine",
     "gym": "Portofino Gym",
     "room": "Machines Room",
     "date": "2026-06-20",
-    "sets": [
-      {
-        "weight": 40,
-        "reps": 10
-      },
-      {
-        "weight": 55,
-        "reps": 10
-      },
-      {
-        "weight": 70,
-        "reps": 10
-      }
-    ],
+    "set": 1,
+    "weight": 40,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm02",
+    "machine": "Seated Row Machine",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 2,
+    "weight": 55,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm02",
+    "machine": "Seated Row Machine",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 3,
+    "weight": 70,
+    "reps": 10,
+    "duration": null,
+    "level": null,
     "notes": ""
   },
   {
     "machineId": "pm07",
-    "machineName": "Back Extension Bench",
+    "machine": "Back Extension Bench",
     "gym": "Portofino Gym",
     "room": "Machines Room",
     "date": "2026-06-20",
-    "sets": [
-      {
-        "weight": null,
-        "reps": 15
-      },
-      {
-        "weight": null,
-        "reps": 15
-      }
-    ],
+    "set": 1,
+    "weight": null,
+    "reps": 15,
+    "duration": null,
+    "level": null,
     "notes": ""
   },
   {
     "machineId": "pm07",
-    "machineName": "Back Extension Bench",
+    "machine": "Back Extension Bench",
     "gym": "Portofino Gym",
     "room": "Machines Room",
     "date": "2026-06-20",
-    "sets": [
-      {
-        "weight": null,
-        "reps": 15
-      },
-      {
-        "weight": null,
-        "reps": 15
-      }
-    ],
+    "set": 2,
+    "weight": null,
+    "reps": 15,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm07",
+    "machine": "Back Extension Bench",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 1,
+    "weight": null,
+    "reps": 15,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm07",
+    "machine": "Back Extension Bench",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 2,
+    "weight": null,
+    "reps": 15,
+    "duration": null,
+    "level": null,
     "notes": ""
   },
   {
     "machineId": "pm04",
-    "machineName": "Pec Fly / Rear Delt Combo",
+    "machine": "Pec Fly / Rear Delt Combo",
     "gym": "Portofino Gym",
     "room": "Machines Room",
     "date": "2026-06-20",
-    "sets": [
-      {
-        "weight": 40,
-        "reps": 10
-      },
-      {
-        "weight": 40,
-        "reps": 10
-      },
-      {
-        "weight": 55,
-        "reps": 10
-      },
-      {
-        "weight": 55,
-        "reps": 10
-      },
-      {
-        "weight": 70,
-        "reps": 10
-      },
-      {
-        "weight": 70,
-        "reps": 10
-      }
-    ],
+    "set": 1,
+    "weight": 40,
+    "reps": 10,
+    "duration": null,
+    "level": null,
     "notes": "Slow!!"
   },
   {
-    "machineId": "pm01",
-    "machineName": "Adjustable Decline Abdominal Bench",
+    "machineId": "pm04",
+    "machine": "Pec Fly / Rear Delt Combo",
     "gym": "Portofino Gym",
     "room": "Machines Room",
     "date": "2026-06-20",
-    "sets": [
-      {
-        "weight": null,
-        "reps": 10
-      },
-      {
-        "weight": null,
-        "reps": 15
-      },
-      {
-        "weight": null,
-        "reps": 10
-      }
-    ],
+    "set": 2,
+    "weight": 40,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm04",
+    "machine": "Pec Fly / Rear Delt Combo",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 3,
+    "weight": 55,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm04",
+    "machine": "Pec Fly / Rear Delt Combo",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 4,
+    "weight": 55,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm04",
+    "machine": "Pec Fly / Rear Delt Combo",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 5,
+    "weight": 70,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm04",
+    "machine": "Pec Fly / Rear Delt Combo",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 6,
+    "weight": 70,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm01",
+    "machine": "Adjustable Decline Abdominal Bench",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 1,
+    "weight": null,
+    "reps": 10,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm01",
+    "machine": "Adjustable Decline Abdominal Bench",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 2,
+    "weight": null,
+    "reps": 15,
+    "duration": null,
+    "level": null,
+    "notes": ""
+  },
+  {
+    "machineId": "pm01",
+    "machine": "Adjustable Decline Abdominal Bench",
+    "gym": "Portofino Gym",
+    "room": "Machines Room",
+    "date": "2026-06-20",
+    "set": 3,
+    "weight": null,
+    "reps": 10,
+    "duration": null,
+    "level": null,
     "notes": ""
   }
 ]

@@ -663,8 +663,9 @@ let state = {
   room: null,     // 'machines' | 'weights' | 'aerobic' | null
   machine: null,  // machine object
   logType: 'weight',
-  log: [],        // loaded from GitHub
+  log: [],        // flat rows loaded from GitHub
   logSha: null,   // GitHub file SHA for updates
+  csvSha: null,   // GitHub CSV file SHA for updates
 };
 
 let navStack = [];
@@ -676,42 +677,83 @@ function getToken() {
   return localStorage.getItem('gh_token') || '';
 }
 
+async function ghGet(path, token) {
+  const res = await fetch(
+    `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`,
+    { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } }
+  );
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error('GitHub fetch failed');
+  return res.json();
+}
+
+async function ghPut(path, content, sha, message, token) {
+  const body = { message, content };
+  if (sha) body.sha = sha;
+  const res = await fetch(
+    `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`,
+    {
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }
+  );
+  if (!res.ok) { const e = await res.json(); throw new Error(e.message); }
+  return res.json();
+}
+
 async function fetchLog() {
   const token = getToken();
   if (!token) return;
   try {
-    const res = await fetch(
-      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${LOG_PATH}`,
-      { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } }
-    );
-    if (res.status === 404) { state.log = []; state.logSha = null; return; }
-    if (!res.ok) throw new Error('GitHub fetch failed');
-    const data = await res.json();
-    state.logSha = data.sha;
-    state.log = JSON.parse(atob(data.content.replace(/\n/g,'')));
+    const [jsonData, csvData] = await Promise.all([
+      ghGet(LOG_PATH, token),
+      ghGet(CSV_PATH, token),
+    ]);
+    if (jsonData) {
+      state.logSha = jsonData.sha;
+      state.log = JSON.parse(atob(jsonData.content.replace(/\n/g,'')));
+    } else {
+      state.log = []; state.logSha = null;
+    }
+    state.csvSha = csvData ? csvData.sha : null;
   } catch(e) {
     console.error('fetchLog:', e);
   }
 }
 
+// ── CSV helpers ───────────────────────────────────────────────────────────────
+const CSV_PATH = 'workout-log.csv';
+const CSV_HEADERS = ['date','gym','room','machine','machineId','set','weight','reps','duration','level','notes'];
+
+function escapeCSV(v) {
+  if (v === null || v === undefined) return '';
+  const s = String(v);
+  return (s.includes(',') || s.includes('"') || s.includes('\n'))
+    ? `"${s.replace(/"/g,'""')}"` : s;
+}
+
+function toCSV(rows) {
+  return [
+    CSV_HEADERS.join(','),
+    ...rows.map(r => CSV_HEADERS.map(h => escapeCSV(r[h])).join(','))
+  ].join('\n');
+}
+
 async function saveLog() {
   const token = getToken();
   if (!token) { showToast('No token — go to Settings first', 'error'); return false; }
-  const content = btoa(unescape(encodeURIComponent(JSON.stringify(state.log, null, 2))));
-  const body = { message: 'Log workout session', content };
-  if (state.logSha) body.sha = state.logSha;
   try {
-    const res = await fetch(
-      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${LOG_PATH}`,
-      {
-        method: 'PUT',
-        headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      }
-    );
-    if (!res.ok) { const e = await res.json(); throw new Error(e.message); }
-    const data = await res.json();
-    state.logSha = data.content.sha;
+    // Save JSON
+    const jsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(state.log, null, 2))));
+    const jsonResult  = await ghPut(LOG_PATH, jsonContent, state.logSha, 'Log workout session', token);
+    state.logSha = jsonResult.content.sha;
+
+    // Save CSV
+    const csvContent = btoa(unescape(encodeURIComponent(toCSV(state.log))));
+    const csvResult  = await ghPut(CSV_PATH, csvContent, state.csvSha, 'Update workout-log.csv', token);
+    state.csvSha = csvResult.content.sha;
+
     return true;
   } catch(e) {
     showToast('Save failed: ' + e.message, 'error');
@@ -913,24 +955,36 @@ async function logSession() {
     resetBtn(); return;
   }
 
-  const entry = {
-    machineId:   state.machine.id,
-    machineName: state.machine.name,
+  const base = {
+    machineId: state.machine.id,
+    machine:   state.machine.name,
     gym:  state.gym === 'fifth' ? '5th Street Gym' : 'Portofino Gym',
     room: state.room ? GYMS.portofino.rooms[state.room] : null,
     date: document.getElementById('log-date').value || todayStr(),
-    sets: validRows,
     notes: document.getElementById('log-notes').value.trim(),
   };
 
-  state.log.unshift(entry);
+  // One flat row per set
+  const newRows = validRows.map((r, i) => ({
+    ...base,
+    set:      i + 1,
+    weight:   r.weight   ?? null,
+    reps:     r.reps     ?? null,
+    duration: r.duration ?? null,
+    level:    r.level    ?? null,
+  }));
+
+  // Notes only on first row to avoid repetition
+  newRows.forEach((r, i) => { if (i > 0) r.notes = ''; });
+
+  state.log.push(...newRows);
   const ok = await saveLog();
 
   if (ok) {
     showToast('Session saved! 💪', 'success');
     selectMachine(state.machine.id);
   } else {
-    state.log.shift();
+    state.log.splice(state.log.length - newRows.length, newRows.length);
   }
 
   resetBtn();
@@ -1001,9 +1055,28 @@ function findMachine(id) {
 }
 
 function getHistory(machineId) {
-  return state.log
-    .filter(s => s.machineId === machineId)
-    .sort((a,b) => b.date.localeCompare(a.date));
+  // Filter flat rows for this machine, sort newest first then by set number
+  const rows = state.log
+    .filter(r => r.machineId === machineId)
+    .sort((a, b) => b.date.localeCompare(a.date) || a.set - b.set);
+
+  // Group by date into session objects (one session per date per machine)
+  const sessions = [];
+  const seen = {};
+  for (const row of rows) {
+    if (!seen[row.date]) {
+      seen[row.date] = { date: row.date, notes: row.notes, sets: [] };
+      sessions.push(seen[row.date]);
+    }
+    seen[row.date].sets.push({
+      weight:   row.weight,
+      reps:     row.reps,
+      duration: row.duration,
+      level:    row.level,
+    });
+    if (row.notes) seen[row.date].notes = row.notes; // keep any non-empty notes
+  }
+  return sessions;
 }
 
 function formatShort(s) {
