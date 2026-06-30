@@ -19,6 +19,16 @@
     --success: #16a34a;
     --danger: #dc2626;
     --radius: 14px;
+  /* ── Section headings on home screen ── */
+  .section-heading {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 18px 16px 6px;
+  }
+
     --shadow: 0 2px 12px rgba(0,0,0,0.10);
   }
 
@@ -617,7 +627,7 @@ const IMG_BASE       = `https://raw.githubusercontent.com/${REPO_OWNER}/${CODE_R
 // ═══════════════════════════════════════════════════════
 const FALLBACK_EQUIPMENT = [
   {
-    id:'fifth', name:'5th Street Gym', icon:'🌤', subtitle:'Outdoor',
+    id:'fifth', name:'5th Street Gym', icon:'🌤', subtitle:'Outdoor', category:'gym',
     rooms:[{
       id:'main', name:'5th Street Gym', icon:'🌤',
       machines:[
@@ -635,57 +645,97 @@ const FALLBACK_EQUIPMENT = [
     }]
   },
   {
-    id:'portofino', name:'Portofino Gym', icon:'🏋️', subtitle:'Indoor',
+    id:'portofino', name:'Portofino Gym', icon:'🏛️', subtitle:'Indoor', category:'gym',
     rooms:[
       {
         id:'machines', name:'Machines Room', icon:'⚙️',
         machines:[
-          {id:'pm01',name:'Adjustable Decline Abdominal Bench',muscles:'Rectus abdominis (six-pack) and obliques',                       img:'portofino/p-machines/1. Adjustable Decline Abdominal Bench.jpg'},
-          {id:'pm02',name:'Seated Row Machine',                 muscles:'Lats, rhomboids, middle trapezius, rear deltoids, biceps',       img:'portofino/p-machines/2. Seated Row Machine.jpg'},
-          {id:'pm03',name:'Seated Chest Press Machine',         muscles:'Pectoralis major, anterior deltoids, and triceps',               img:'portofino/p-machines/3. Seated Chest Press Machine.jpg'},
-          {id:'pm04',name:'Pec Fly / Rear Delt Combo',         muscles:'Fly: chest · Reverse fly: rear delts, rhomboids, mid trapezius', img:'portofino/p-machines/4. Pec Fly _ Rear Delt Combo.jpg'},
-          {id:'pm05',name:'Seated Leg Extension Machine',       muscles:'Quadriceps (isolated)',                                         img:'portofino/p-machines/5.  Seated Leg Extension Machine.jpg'},
-          {id:'pm06',name:'Seated Leg Curl Machine',            muscles:'Hamstrings (isolated)',                                         img:'portofino/p-machines/6.  Seated Leg Curl Machine.jpg'},
-          {id:'pm07',name:'Back Extension Bench',               muscles:'Lower back, glutes, and hamstrings',                            img:'portofino/p-machines/7. Back Extension Bench.jpg'},
-          {id:'pm08',name:'Seated Shoulder Press',              muscles:'Deltoids and triceps',                                          img:'portofino/p-machines/8. Seated Shoulder Press.jpg'},
-          {id:'pm09',name:'Functional Trainer (Cable Crossover)',muscles:'Chest, back, arms, and core — highly versatile',               img:'portofino/p-machines/9. Functional Trainer (Cable Crossover).jpg'},
-          {id:'pm10',name:'Seated Biceps Curl Machine',         muscles:'Biceps brachii',                                               img:'portofino/p-machines/10. Seated Biceps Curl Machine.jpg'},
-          {id:'pm11',name:'Hip Abduction Machine',              muscles:'Outer glutes (gluteus medius) and outer thighs',               img:'portofino/p-machines/11. Hip Abduction Machine.jpg'},
-          {id:'pm12',name:'Hip Adduction Machine',              muscles:'Inner thigh muscles (adductors)',                              img:'portofino/p-machines/12. Hip Adduction Machine.jpg'},
-          {id:'pm13',name:'Seated Abdominal Crunch Machine',    muscles:'Upper and lower rectus abdominis (six-pack)',                  img:'portofino/p-machines/13. Seated Abdominal Crunch Machine.jpg'},
-          {id:'pm14',name:'Glute Isolator',                     muscles:'Glutes and upper hamstrings',                                 img:'portofino/p-machines/14. Glute Isolator.jpg'},
-          {id:'pm15',name:'Power Plate Vibration Platform',     muscles:'Core stability, balance, flexibility, and circulation',       img:'portofino/p-machines/15. Power Plate Pro-Series Vibration Platform.jpg'},
-          {id:'pm16',name:'Pilates Reformer & Tower',           muscles:'Deep core strength, flexibility, and alignment',              img:'portofino/p-machines/16. Pilates Reformer and Tower Machine.jpg'},
-          {id:'pm17',name:'Speed Bag',                          muscles:'Hand-eye coordination, shoulder endurance, and reflexes',     img:'portofino/p-machines/17. Speed Bag.jpg'},
+          {id:'pm01',name:'Adjustable Decline Abdominal Bench',    muscles:'Rectus abdominis (six-pack) and obliques',                          img:'portofino/p-machines/1. Adjustable Decline Abdominal Bench.jpg'},
+          {id:'pm02',name:'Seated Row Machine',                    muscles:'Lats, rhomboids, middle trapezius, rear deltoids, biceps',          img:'portofino/p-machines/2. Seated Row Machine.jpg'},
+          {id:'pm03',name:'Seated Chest Press Machine',            muscles:'Pectoralis major, anterior deltoids, and triceps',                  img:'portofino/p-machines/3. Seated Chest Press Machine.jpg'},
+          {id:'pm04',name:'Pec Fly',                               muscles:'Chest',                                                            img:'portofino/p-machines/4. Pec Fly _ Rear Delt Combo.jpg'},
+          {id:'pm05',name:'Seated Leg Extension Machine',          muscles:'Quadriceps (isolated)',                                             img:'portofino/p-machines/5.  Seated Leg Extension Machine.jpg'},
+          {id:'pm06',name:'Seated Leg Curl Machine',               muscles:'Hamstrings (isolated)',                                             img:'portofino/p-machines/6.  Seated Leg Curl Machine.jpg'},
+          {id:'pm07',name:'Back Extension Bench',                  muscles:'Lower back, glutes, and hamstrings',                               img:'portofino/p-machines/7. Back Extension Bench.jpg'},
+          {id:'pm08',name:'Seated Shoulder Press',                 muscles:'Deltoids and triceps',                                             img:'portofino/p-machines/8. Seated Shoulder Press.jpg'},
+          {id:'pm09',name:'Functional Trainer (Cable Crossover)',  muscles:'Chest, back, arms, and core — highly versatile',                   img:'custom/pm09.jpg'},
+          {id:'pm10',name:'Seated Biceps Curl Machine',            muscles:'Biceps brachii',                                                   img:'portofino/p-machines/10. Seated Biceps Curl Machine.jpg'},
+          {id:'pm11',name:'Hip Abduction Machine',                 muscles:'Outer glutes (gluteus medius) and outer thighs',                   img:'portofino/p-machines/11. Hip Abduction Machine.jpg'},
+          {id:'pm12',name:'Hip Adduction Machine',                 muscles:'Inner thigh muscles (adductors)',                                  img:'portofino/p-machines/12. Hip Adduction Machine.jpg'},
+          {id:'pm13',name:'Seated Abdominal Crunch Machine',       muscles:'Upper and lower rectus abdominis (six-pack)',                      img:'portofino/p-machines/13. Seated Abdominal Crunch Machine.jpg'},
+          {id:'pm14',name:'Glute Isolator',                        muscles:'Glutes and upper hamstrings',                                      img:'portofino/p-machines/14. Glute Isolator.jpg'},
+          {id:'pm15',name:'Power Plate Vibration Platform',        muscles:'Core stability, balance, flexibility, and circulation',            img:'portofino/p-machines/15. Power Plate Pro-Series Vibration Platform.jpg'},
+          {id:'pm16',name:'Pilates Reformer & Tower',              muscles:'Deep core strength, flexibility, and alignment',                   img:'portofino/p-machines/16. Pilates Reformer and Tower Machine.jpg'},
+          {id:'pm17',name:'Speed Bag',                             muscles:'Hand-eye coordination, shoulder endurance, and reflexes',          img:'portofino/p-machines/17. Speed Bag.jpg'},
+          {id:'m1782480059048',name:'Rear Deltoid',                muscles:'Reverse fly: rear delts, rhomboids, mid trapezius',                img:'custom/m1782480059048.jpg'},
         ]
       },
       {
         id:'weights', name:'Weight Room', icon:'🏋️',
         machines:[
-          {id:'pw01',name:'Assisted Pullup & Dip Machine',     muscles:'Upper body — pull-ups, leg raises, dips',                        img:'portofino/p-weight-room/1. Assisted Pullup and Dip Machine.jpg'},
-          {id:'pw02',name:'Lat Pulldown Machine',               muscles:'Latissimus dorsi, rhomboids, biceps',                            img:'portofino/p-weight-room/2. Lat Pulldown Machine.jpg'},
-          {id:'pw03',name:'Seated Cable Row Machine',           muscles:'Upper back — lats, rhomboids, trapezius, rear deltoids, biceps', img:'portofino/p-weight-room/3. Seated Cable Row Machine.jpg'},
-          {id:'pw04',name:'Seated Preacher Curl Bench',         muscles:'Biceps (plate-loaded, elbows locked)',                           img:'portofino/p-weight-room/4. Seated Preacher Curl Bench.jpg'},
-          {id:'pw05',name:'Adjustable Incline/Decline Benches', muscles:'Free weight support — chest presses, shoulder presses, rows',   img:'portofino/p-weight-room/5. Adjustable Incline_Decline Benches.jpg'},
-          {id:'pw06',name:'Seated Leg Press Machine',           muscles:'Quadriceps, glutes, and hamstrings',                            img:'portofino/p-weight-room/6. Seated Leg Press Machine.jpg'},
-          {id:'pw07',name:'Bench Press',                        muscles:'Chest, triceps, and front deltoids',                            img:'portofino/p-weight-room/7. Bench Press.jpg'},
-          {id:'pw08',name:'Plate-Loaded Seated Calf Raise',     muscles:'Soleus (lower calf) — isolated ankle extension',               img:'portofino/p-weight-room/8. Plate-Loaded Seated Calf Raise Machine.jpg'},
+          {id:'pw01',name:'Assisted Pullup & Dip Machine',        muscles:'Upper body — pull-ups, leg raises, dips',                          img:'portofino/p-weight-room/1. Assisted Pullup and Dip Machine.jpg'},
+          {id:'pw02',name:'Lat Pulldown Machine',                  muscles:'Latissimus dorsi, rhomboids, biceps',                              img:'portofino/p-weight-room/2. Lat Pulldown Machine.jpg'},
+          {id:'pw03',name:'Seated Cable Row Machine',              muscles:'Upper back — lats, rhomboids, trapezius, rear deltoids, biceps',   img:'portofino/p-weight-room/3. Seated Cable Row Machine.jpg'},
+          {id:'pw04',name:'Seated Preacher Curl Bench',            muscles:'Biceps (plate-loaded, elbows locked)',                             img:'portofino/p-weight-room/4. Seated Preacher Curl Bench.jpg'},
+          {id:'pw05',name:'Adjustable Incline/Decline Benches',   muscles:'Free weight support — chest presses, shoulder presses, rows',      img:'portofino/p-weight-room/5. Adjustable Incline_Decline Benches.jpg'},
+          {id:'pw06',name:'Seated Leg Press Machine',              muscles:'Quadriceps, glutes, and hamstrings',                               img:'portofino/p-weight-room/6. Seated Leg Press Machine.jpg'},
+          {id:'pw07',name:'Bench Press',                           muscles:'Chest, triceps, and front deltoids',                               img:'portofino/p-weight-room/7. Bench Press.jpg'},
+          {id:'pw08',name:'Plate-Loaded Seated Calf Raise',        muscles:'Soleus (lower calf) — isolated ankle extension',                  img:'portofino/p-weight-room/8. Plate-Loaded Seated Calf Raise Machine.jpg'},
         ]
       },
       {
         id:'aerobic', name:'Aerobic Room', icon:'🚴',
         machines:[
-          {id:'pa01',name:'Stair Climber',               muscles:'Glutes, quadriceps, hamstrings, and calves — high-intensity cardio',  img:'portofino/p-aerobic/1. Stair Climber.jpg'},
-          {id:'pa02',name:'Recumbent Stationary Bike',   muscles:'Quadriceps, hamstrings, glutes, and calves — low-impact cardio',      img:'portofino/p-aerobic/2. Precor Recumbent Stationary Bike.jpg'},
-          {id:'pa03',name:'Hydrow Indoor Rowing Machine',muscles:'60% legs · 20% core · 20% arms & back — full body cardio',            img:'portofino/p-aerobic/3. Hydrow Indoor Rowing Machine.jpg'},
-          {id:'pa04',name:'Peloton',                     muscles:'Cardiovascular conditioning — quadriceps, hamstrings, calves',        img:'portofino/p-aerobic/4. Peloton.jpg'},
-          {id:'pa05',name:'Treadmill',                   muscles:'Cardiovascular conditioning — lower body endurance',                  img:'portofino/p-aerobic/5. Treadmill.jpg'},
-          {id:'pa06',name:'Elliptical Cross Trainer',    muscles:'Low-impact full-body cardiovascular workout',                         img:'portofino/p-aerobic/6. Elliptical Cross Trainer.jpg'},
+          {id:'pa01',name:'Stair Climber',                muscles:'Glutes, quadriceps, hamstrings, and calves — high-intensity cardio',       img:'portofino/p-aerobic/1. Stair Climber.jpg'},
+          {id:'pa02',name:'Recumbent Stationary Bike',    muscles:'Quadriceps, hamstrings, glutes, and calves — low-impact cardio',           img:'portofino/p-aerobic/2. Precor Recumbent Stationary Bike.jpg'},
+          {id:'pa03',name:'Hydrow Indoor Rowing Machine', muscles:'60% legs · 20% core · 20% arms & back — full body cardio',               img:'portofino/p-aerobic/3. Hydrow Indoor Rowing Machine.jpg'},
+          {id:'pa04',name:'Peloton',                      muscles:'Cardiovascular conditioning — quadriceps, hamstrings, calves',             img:'portofino/p-aerobic/4. Peloton.jpg'},
+          {id:'pa05',name:'Treadmill',                    muscles:'Cardiovascular conditioning — lower body endurance',                       img:'portofino/p-aerobic/5. Treadmill.jpg'},
+          {id:'pa06',name:'Elliptical Cross Trainer',     muscles:'Low-impact full-body cardiovascular workout',                              img:'portofino/p-aerobic/6. Elliptical Cross Trainer.jpg'},
         ]
       }
     ]
-  }
-];
+  },
+  {
+    id:'gym_1782438513986', name:'10th St Outdoor Gym', icon:'🌳', subtitle:'Outdoor', category:'gym',
+    rooms:[{
+      id:'room_1782438513987', name:'10th St Outdoor Gym', icon:'🌳',
+      machines:[
+        {id:'m1782438526308',name:'Pullups',       muscles:'',img:'custom/m1782438526308.jpg'},
+        {id:'m1782438536945',name:'Pushups',       muscles:'',img:'custom/m1782438536945.jpg'},
+        {id:'m1782438562955',name:'Dips',          muscles:'',img:'custom/m1782438562955.jpg'},
+        {id:'m1782438581719',name:'Incline Situps',muscles:'',img:'custom/m1782438581719.jpg'},
+      ]
+    }]
+  },
+  {
+    id:'gym_1782151552346', name:'Body Weight Exercises', icon:'💪', subtitle:'Anywhere', category:'activity',
+    rooms:[{
+      id:'room_1782151552346', name:'Body Weight Exercises', icon:'💪',
+      machines:[
+        {id:'m1782151830912',name:'Pushups',       muscles:'Pecs, Triceps, Delts',           img:'custom/m1782151830912.jpg'},
+        {id:'m1782151847976',name:'Situps',        muscles:'Abdominals, Hip Flexors',         img:'custom/m1782151847976.jpg'},
+        {id:'m1782152064365',name:'Squats',        muscles:'Quadriceps, Glutes',              img:'custom/m1782152064365.jpg'},
+        {id:'m1782152403811',name:'Leg Lift',      muscles:'Lower abdominals, Hip flexors',   img:'custom/m1782152403811.jpg'},
+        {id:'m1782155409636',name:'Lunges',        muscles:'Quadriceps, Glutes',              img:'custom/m1782155409636.jpg'},
+        {id:'m1782155775818',name:'Plank (Elbows)',muscles:'',                                img:'custom/m1782155775818.jpg'},
+        {id:'m1782155799107',name:'Side Plank',    muscles:'',                                img:'custom/m1782155799107.jpg'},
+      ]
+    }]
+  },
+  {
+    id:'gym_1782152699045', name:'Outdoor Aerobics', icon:'🏃', subtitle:'Running, Biking, etc.', category:'activity',
+    rooms:[{
+      id:'room_1782152699045', name:'Outdoor Aerobics', icon:'🏃',
+      machines:[
+        {id:'m1782152863635',name:'Run',       muscles:'',img:'custom/m1782152863635.jpg'},
+        {id:'m1782152881631',name:'Bike',      muscles:'',img:'custom/m1782152881631.jpg'},
+        {id:'m1782186709718',name:'Walk',      muscles:'',img:'custom/m1782186709718.jpg'},
+        {id:'m1782270401119',name:'Jump Rope', muscles:'',img:'custom/m1782270401119.jpg'},
+      ]
+    }]
+  },
+]
 
 // ═══════════════════════════════════════════════════════
 // STATE
@@ -912,7 +962,8 @@ function showHome() {
 function renderHome() {
   const container = document.getElementById('gym-cards-container');
   if (!container) return;
-  container.innerHTML = state.equipment.map(gym => {
+
+  function cardHTML(gym) {
     const total = gym.rooms.reduce((s, r) => s + r.machines.length, 0);
     const sub = gym.rooms.length === 1
       ? `${gym.subtitle} · ${total} machines`
@@ -921,7 +972,21 @@ function renderHome() {
       <div class="gym-icon">${gym.icon||'🏋️'}</div>
       <div class="gym-info"><h2>${gym.name}</h2><p>${sub}</p></div>
     </div>`;
-  }).join('');
+  }
+
+  const gyms       = state.equipment.filter(g => (g.category||'gym') === 'gym');
+  const activities = state.equipment.filter(g => g.category === 'activity');
+
+  let html = '';
+  if (gyms.length) {
+    html += '<div class="section-heading">Gyms</div>';
+    html += gyms.map(cardHTML).join('');
+  }
+  if (activities.length) {
+    html += '<div class="section-heading">Activities</div>';
+    html += activities.map(cardHTML).join('');
+  }
+  container.innerHTML = html;
 }
 
 function selectGym(gymId) {
