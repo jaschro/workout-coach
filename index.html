@@ -1134,12 +1134,16 @@ function initSetRows(lastSession) {
   document.getElementById('weight-rows').innerHTML = '';
   document.getElementById('time-rows').innerHTML   = '';
   if (lastSession && Array.isArray(lastSession.sets) && lastSession.sets.length) {
-    const type = (lastSession.sets[0].duration !== undefined) ? 'time' : 'weight';
+    const type = (lastSession.sets[0].duration != null) ? 'time' : 'weight';
+    const other = type === 'weight' ? 'time' : 'weight';
     setType(type);
     lastSession.sets.forEach(sv => addSetRow(type, sv));
+    // Pre-populate the other type with empty rows so switching modes is seamless
+    for (let i = 0; i < lastSession.sets.length; i++) addSetRow(other);
   } else {
     setType('weight');
     addSetRow('weight'); addSetRow('weight'); addSetRow('weight');
+    addSetRow('time'); addSetRow('time'); addSetRow('time');
   }
 }
 
