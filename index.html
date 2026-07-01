@@ -1165,7 +1165,6 @@ function initSetRows(lastSession) {
     const other = type === 'weight' ? 'time' : 'weight';
     setType(type);
     lastSession.sets.forEach(sv => addSetRow(type, sv));
-    // Pre-populate the other type with empty rows so switching modes is seamless
     for (let i = 0; i < lastSession.sets.length; i++) addSetRow(other);
   } else {
     setType('weight');
@@ -1604,4 +1603,8 @@ function showToast(msg, type='') {
 // ═══════════════════════════════════════════════════════
 (async function init() {
   showHome();
-  await Promise.all([fetchLog
+  await Promise.all([fetchLog(), fetchEquipment()]);
+})();
+</script>
+</body>
+</html>
