@@ -209,11 +209,13 @@
     display: grid; grid-template-columns: 28px 1fr 1fr 32px;
     gap: 6px; padding: 0 2px 6px;
   }
+  #time-fields .sets-header { grid-template-columns: 28px 1fr 1fr 1fr 32px; }
   .sets-header span { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
   .set-row {
     display: grid; grid-template-columns: 28px 1fr 1fr 32px;
     gap: 6px; margin-bottom: 8px; align-items: center;
   }
+  #time-rows .set-row { grid-template-columns: 28px 1fr 1fr 1fr 32px; }
   .set-num { font-size: 13px; font-weight: 700; color: var(--text-muted); text-align: center; padding-top: 2px; }
   .set-row input {
     border: 1.5px solid var(--border); border-radius: 8px;
@@ -468,7 +470,7 @@
         <label>Measure</label>
         <div class="type-toggle">
           <button class="active" id="toggle-weight" onclick="setType('weight')">Weight &amp; Reps</button>
-          <button id="toggle-time" onclick="setType('time')">Duration</button>
+          <button id="toggle-time" onclick="setType('time')">Cardio</button>
         </div>
       </div>
     </div>
@@ -481,7 +483,7 @@
     </div>
     <div id="time-fields" class="sets-table" style="display:none">
       <div class="sets-header">
-        <span>#</span><span>Duration (min)</span><span>Level</span><span></span>
+        <span>#</span><span>Distance (mi)</span><span>Time</span><span>Pace (/mi)</span><span></span>
       </div>
       <div id="time-rows"></div>
       <button class="btn-add-set" onclick="addSetRow('time')">+ Add Set</button>
@@ -1107,8 +1109,9 @@ function addSetRow(type, vals={}) {
       <button class="set-remove" onclick="removeSetRow(this,'weight')" title="Remove">×</button>`;
   } else {
     row.innerHTML = `<div class="set-num">${num}</div>
-      <input type="number" inputmode="numeric" min="1" placeholder="min" value="${vals.duration??''}">
-      <input type="number" inputmode="numeric" min="1" placeholder="lvl" value="${vals.level??''}">
+      <input type="text" inputmode="decimal" placeholder="mi" value="${vals.distance??vals.duration??''}">
+      <input type="text" inputmode="text" placeholder="1:21:04" value="${vals.time??''}">
+      <input type="text" inputmode="text" placeholder="17:46" value="${vals.pace??''}">
       <button class="set-remove" onclick="removeSetRow(this,'time')" title="Remove">×</button>`;
   }
   container.appendChild(row);
@@ -1126,7 +1129,7 @@ function getSetRows(type) {
     const inputs = row.querySelectorAll('input');
     return type==='weight'
       ? { weight: parseFloat(inputs[0].value)||null, reps: parseInt(inputs[1].value)||null }
-      : { duration: parseInt(inputs[0].value)||null, level: parseInt(inputs[1].value)||null };
+      : { distance: inputs[0].value.trim()||null, time: inputs[1].value.trim()||null, pace: inputs[2].value.trim()||null };
   });
 }
 
@@ -1134,7 +1137,8 @@ function initSetRows(lastSession) {
   document.getElementById('weight-rows').innerHTML = '';
   document.getElementById('time-rows').innerHTML   = '';
   if (lastSession && Array.isArray(lastSession.sets) && lastSession.sets.length) {
-    const type = (lastSession.sets[0].duration != null) ? 'time' : 'weight';
+    const s0 = lastSession.sets[0];
+    const type = (s0.duration != null || s0.distance != null || s0.time != null || s0.pace != null) ? 'time' : 'weight';
     const other = type === 'weight' ? 'time' : 'weight';
     setType(type);
     lastSession.sets.forEach(sv => addSetRow(type, sv));
@@ -1178,7 +1182,7 @@ async function logSession() {
 
   const type = state.logType;
   const rows = getSetRows(type);
-  const validRows = rows.filter(r => type==='weight' ? (r.weight!==null||r.reps!==null) : r.duration!==null);
+  const validRows = rows.filter(r => type==='weight' ? (r.weight!==null||r.reps!==null) : (r.distance!==null||r.time!==null||r.duration!==null));
 
   if (!validRows.length) { showToast('Fill in at least one set','error'); resetBtn(); return; }
 
@@ -1197,6 +1201,7 @@ async function logSession() {
     ...base, set: i+1,
     weight: r.weight??null, reps: r.reps??null,
     duration: r.duration??null, level: r.level??null,
+    distance: r.distance??null, time: r.time??null, pace: r.pace??null,
   }));
   newRows.forEach((r,i) => { if (i>0) r.notes=''; });
 
@@ -1532,7 +1537,9 @@ function formatSetsList(s) {
   if (Array.isArray(s.sets) && s.sets.length) {
     return s.sets.map((r,i) => {
       let val;
-      if (r.duration!==null && r.duration!==undefined) {
+      if (r.distance!=null || r.time!=null || r.pace!=null) {
+        val = [r.distance ? `${r.distance} mi` : '', r.time||'', r.pace ? `${r.pace} /mi` : ''].filter(Boolean).join(' · ');
+      } else if (r.duration!=null) {
         val = `${r.duration} min${r.level ? ` · lvl ${r.level}` : ''}`;
       } else {
         val = [
