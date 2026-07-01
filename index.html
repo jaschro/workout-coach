@@ -1525,7 +1525,7 @@ function getHistory(machineId) {
   const sessions = [], seen = {};
   for (const row of rows) {
     if (!seen[row.date]) { seen[row.date] = { date: row.date, notes: row.notes, sets: [] }; sessions.push(seen[row.date]); }
-    seen[row.date].sets.push({ weight: row.weight, reps: row.reps, duration: row.duration, level: row.level });
+    seen[row.date].sets.push({ weight: row.weight, reps: row.reps, duration: row.duration, level: row.level, distance: row.distance, time: row.time, pace: row.pace });
     if (row.notes) seen[row.date].notes = row.notes;
   }
   return sessions;
@@ -1604,8 +1604,4 @@ function showToast(msg, type='') {
 // ═══════════════════════════════════════════════════════
 (async function init() {
   showHome();
-  await Promise.all([fetchLog(), fetchEquipment()]);
-})();
-</script>
-</body>
-</html>
+  await Promise.all([fetchLog
