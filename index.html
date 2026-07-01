@@ -1097,6 +1097,26 @@ function setType(type) {
   document.getElementById('time-fields').style.display   = type==='time'   ? '' : 'none';
 }
 
+function calcPace(distanceMi, timeStr) {
+  if (!distanceMi || !timeStr) return '';
+  const parts = timeStr.split(':').map(Number);
+  let totalSecs;
+  if (parts.length === 3) totalSecs = parts[0]*3600 + parts[1]*60 + parts[2];
+  else if (parts.length === 2) totalSecs = parts[0]*60 + parts[1];
+  else return '';
+  if (parts.some(isNaN) || totalSecs <= 0 || distanceMi <= 0) return '';
+  const paceSecPerMile = totalSecs / distanceMi;
+  const paceMin = Math.floor(paceSecPerMile / 60);
+  const paceSec = Math.round(paceSecPerMile % 60);
+  return `${paceMin}:${String(paceSec).padStart(2,'0')}`;
+}
+
+function updatePace(input) {
+  const row = input.closest('.set-row');
+  const inputs = row.querySelectorAll('input');
+  inputs[2].value = calcPace(parseFloat(inputs[0].value), inputs[1].value.trim());
+}
+
 function addSetRow(type, vals={}) {
   const container = document.getElementById(type==='weight' ? 'weight-rows' : 'time-rows');
   const num = container.children.length + 1;
@@ -1108,10 +1128,13 @@ function addSetRow(type, vals={}) {
       <input type="number" inputmode="numeric" min="1" placeholder="reps" value="${vals.reps??''}">
       <button class="set-remove" onclick="removeSetRow(this,'weight')" title="Remove">×</button>`;
   } else {
+    const dist = vals.distance ?? vals.duration ?? '';
+    const time = vals.time ?? '';
+    const pace = calcPace(parseFloat(dist), time) || vals.pace || '';
     row.innerHTML = `<div class="set-num">${num}</div>
-      <input type="text" inputmode="decimal" placeholder="mi" value="${vals.distance??vals.duration??''}">
-      <input type="text" inputmode="text" placeholder="1:21:04" value="${vals.time??''}">
-      <input type="text" inputmode="text" placeholder="17:46" value="${vals.pace??''}">
+      <input type="number" inputmode="decimal" step="0.01" min="0" placeholder="mi" value="${dist}" oninput="updatePace(this)">
+      <input type="text" inputmode="text" placeholder="1:21:04" value="${time}" oninput="updatePace(this)">
+      <input type="text" placeholder="17:46" value="${pace}" readonly tabindex="-1" style="background:var(--surface);color:var(--text-muted);cursor:default">
       <button class="set-remove" onclick="removeSetRow(this,'time')" title="Remove">×</button>`;
   }
   container.appendChild(row);
@@ -1129,7 +1152,7 @@ function getSetRows(type) {
     const inputs = row.querySelectorAll('input');
     return type==='weight'
       ? { weight: parseFloat(inputs[0].value)||null, reps: parseInt(inputs[1].value)||null }
-      : { distance: inputs[0].value.trim()||null, time: inputs[1].value.trim()||null, pace: inputs[2].value.trim()||null };
+      : { distance: parseFloat(inputs[0].value)||null, time: inputs[1].value.trim()||null, pace: inputs[2].value.trim()||null };
   });
 }
 
