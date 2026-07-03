@@ -518,6 +518,11 @@
     <p class="settings-note" style="margin-top:10px">Add, edit, or remove gyms, rooms, and machines.</p>
   </div>
   <div class="settings-section">
+    <h3>Download History</h3>
+    <button class="btn-manage-equip" onclick="downloadCSV()">⬇ Download workout-log.csv</button>
+    <p class="settings-note" style="margin-top:10px">Downloads your full workout history as a CSV file.</p>
+  </div>
+  <div class="settings-section">
     <h3>About</h3>
     <p class="settings-note">Workout Coach stores all data in your private GitHub repo <strong>jaschro/workout-coach-private-data</strong>. Equipment list is in <code>equipment.json</code>. Workout history is in <code>workout-log.json</code>.</p>
   </div>
@@ -903,6 +908,17 @@ function escapeCSV(v) {
   const s = String(v);
   return (s.includes(',')||s.includes('"')||s.includes('\n')) ? `"${s.replace(/"/g,'""')}"` : s;
 }
+function downloadCSV() {
+  if (!state.log.length) { showToast('No workout history to download', 'error'); return; }
+  const csv = toCSV(state.log);
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'workout-log.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 function toCSV(rows) {
   return [CSV_HEADERS.join(','), ...rows.map(r => CSV_HEADERS.map(h => escapeCSV(r[h])).join(','))].join('\n');
 }
@@ -1072,6 +1088,7 @@ function selectMachine(machineId) {
         </div>
       </div>
       <div class="history-sets">${formatSetsList(s)}</div>
+      ${s.notes ? `<div style="font-size:12px;color:var(--text-muted);font-style:italic;margin-top:2px">${s.notes}</div>` : ''}
     </div>`).join('')
   : '<div class="history-empty">No sessions recorded yet — be the first!</div>';
 
